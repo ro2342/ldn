@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LONDRES · 01–02 JUL 2026 — Roteiro & Conteúdo</title>
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Londres 🇬🇧">
+<meta name="theme-color" content="#0d1812">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230d1812'/><text y='.9em' font-size='80'>🇬🇧</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-deep:#0d1812;
+    --bg:#15261d;
+    --bg-soft:#1c3127;
+    --paper:#f6efdc;
+    --paper-soft:#efe6cd;
+    --ink:#201c14;
+    --muted:#6e6552;
+    --brass:#b08a3d;
+    --brass-soft:#cdab66;
+    --stamp:#8c3030;
+    --teal:#2c6b61;
+    --line: rgba(176,138,61,0.35);
+    --font-display:'Fraunces', serif;
+    --font-mono:'Space Mono', monospace;
+    --font-body:'Inter', system-ui, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg-deep);
+    background-image:
+      radial-gradient(circle at 15% 0%, var(--bg-soft) 0%, transparent 55%),
+      radial-gradient(circle at 90% 100%, var(--bg-soft) 0%, transparent 50%);
+    color:var(--paper);
+    font-family:var(--font-body);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--brass-soft);}
+  img{max-width:100%;}
+
+  /* ===== HEADER / BOARDING PASS ===== */
+  .passport-header{
+    padding:28px 16px 18px;
+    text-align:center;
+    border-bottom:1px solid var(--line);
+  }
+  .passport-header .kicker{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.18em;
+    color:var(--brass-soft);
+    text-transform:uppercase;
+  }
+  .passport-header h1{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:clamp(28px,7vw,44px);
+    margin:6px 0 4px;
+    letter-spacing:.01em;
+  }
+  .passport-header .sub{
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--paper-soft);
+    opacity:.8;
+  }
+
+  .tickets{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    justify-content:center;
+    margin:18px auto 0;
+    max-width:760px;
+    padding:0 12px;
+  }
+  .ticket{
+    flex:1 1 280px;
+    background:var(--paper);
+    color:var(--ink);
+    border-radius:10px;
+    padding:12px 14px;
+    position:relative;
+    font-family:var(--font-mono);
+    font-size:12px;
+    border:1px solid #d9caa0;
+    text-align:left;
+  }
+  .ticket::before, .ticket::after{
+    content:"";
+    position:absolute;
+    top:50%;
+    width:14px;height:14px;
+    background:var(--bg-deep);
+    border-radius:50%;
+    transform:translateY(-50%);
+  }
+  .ticket::before{left:-7px;}
+  .ticket::after{right:-7px;}
+  .ticket .route{
+    font-family:var(--font-display);
+    font-size:18px;
+    font-weight:600;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:var(--stamp);
+  }
+  .ticket .route .arrow{color:var(--brass);font-size:14px;}
+  .ticket .meta{margin-top:6px;color:var(--muted);}
+  .ticket .meta b{color:var(--ink);}
+
+  .status-strip{
+    max-width:760px;
+    margin:16px auto 0;
+    padding:10px 16px;
+    background:var(--bg-soft);
+    border:1px dashed var(--line);
+    border-radius:8px;
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--paper-soft);
+    display:flex;
+    gap:18px;
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+  .status-strip span b{color:var(--brass-soft);}
+
+  /* ===== NAV TABS ===== */
+  .tabs{
+    position:sticky;
+    top:0;
+    z-index:50;
+    display:flex;
+    background:var(--bg-deep);
+    border-bottom:1px solid var(--line);
+    overflow-x:auto;
+  }
+  .tab-btn{
+    flex:1;
+    min-width:90px;
+    padding:14px 8px;
+    background:none;
+    border:none;
+    color:var(--paper-soft);
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    cursor:pointer;
+    border-bottom:3px solid transparent;
+    opacity:.6;
+  }
+  .tab-btn.active{
+    opacity:1;
+    color:var(--paper);
+    border-bottom-color:var(--brass);
+  }
+  .tab-btn:focus-visible{outline:2px solid var(--brass-soft); outline-offset:2px;}
+
+  main{max-width:780px;margin:0 auto;padding:24px 16px 80px;}
+  .panel{display:none;}
+  .panel.active{display:block;animation:fade .25s ease;}
+  @media (prefers-reduced-motion: reduce){.panel.active{animation:none;}}
+  @keyframes fade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:none;}}
+
+  .day-summary{
+    font-family:var(--font-mono);
+    font-size:13px;
+    background:var(--bg-soft);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:14px 16px;
+    margin-bottom:24px;
+  }
+  .day-summary div{display:flex;gap:10px;padding:3px 0;}
+  .day-summary .t{color:var(--brass-soft);min-width:46px;}
+  .day-summary .flag{color:var(--stamp);font-weight:700;}
+
+  h2.section-title{
+    font-family:var(--font-display);
+    font-size:22px;
+    font-weight:600;
+    margin:0 0 14px;
+    color:var(--paper);
+  }
+  h2.section-title .day-no{
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--brass-soft);
+    display:block;
+    letter-spacing:.15em;
+  }
+
+  /* ===== TIMELINE / STOP CARDS ===== */
+  .timeline{
+    position:relative;
+    padding-left:18px;
+    border-left:2px dashed var(--line);
+  }
+  .stop{
+    position:relative;
+    background:var(--paper);
+    color:var(--ink);
+    border-radius:12px;
+    padding:18px 18px 16px;
+    margin:0 0 22px 14px;
+    box-shadow:0 8px 22px rgba(0,0,0,.25);
+  }
+  .stop::before{
+    content:"";
+    position:absolute;
+    left:-32px;
+    top:22px;
+    width:11px;height:11px;
+    border-radius:50%;
+    background:var(--brass);
+    border:2px solid var(--bg-deep);
+  }
+  .stop.optional{border:2px dashed var(--brass);background:var(--paper-soft);}
+  .stop-time{
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--stamp);
+    font-weight:700;
+    letter-spacing:.04em;
+  }
+  .stop h3{
+    font-family:var(--font-display);
+    font-size:19px;
+    margin:2px 0 2px;
+    font-weight:600;
+  }
+  .stop .addr{
+    font-family:var(--font-mono);
+    font-size:11.5px;
+    color:var(--muted);
+    margin-bottom:8px;
+  }
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
+  .tag{
+    font-family:var(--font-mono);
+    font-size:10.5px;
+    padding:3px 8px;
+    border-radius:20px;
+    border:1px solid var(--brass);
+    color:var(--ink);
+    background:rgba(176,138,61,0.12);
+    white-space:nowrap;
+  }
+  .stop p{margin:0 0 8px;font-size:14.5px;}
+  .stop .tip{
+    font-size:13px;
+    background:rgba(44,107,97,0.1);
+    border-left:3px solid var(--teal);
+    padding:6px 10px;
+    color:#2c4842;
+    margin:8px 0 0;
+  }
+  .stop .badge-opt{
+    font-family:var(--font-mono);
+    font-size:10px;
+    color:var(--stamp);
+    border:1px dashed var(--stamp);
+    padding:2px 8px;
+    border-radius:6px;
+    float:right;
+  }
+  .map-embed{
+    width:100%;
+    height:130px;
+    border-radius:8px;
+    overflow:hidden;
+    margin:8px 0 10px;
+    border:1px solid #d9caa0;
+    background:#e8e2cf;
+  }
+  .map-embed iframe{width:100%;height:100%;border:0;display:block;}
+  .map-link{
+    display:inline-block;
+    font-family:var(--font-mono);
+    font-size:11.5px;
+    color:var(--ink);
+    background:rgba(176,138,61,0.18);
+    border:1px solid var(--brass);
+    border-radius:20px;
+    padding:4px 12px;
+    text-decoration:none;
+    margin:0 0 10px;
+  }
+  .day-route-cta{
+    display:block;
+    text-align:center;
+    font-family:var(--font-mono);
+    font-size:13px;
+    font-weight:700;
+    color:var(--ink);
+    background:var(--brass-soft);
+    border-radius:10px;
+    padding:12px 16px;
+    text-decoration:none;
+    margin:0 0 20px;
+    border:1px solid var(--brass);
+  }
+  .day-route-cta:hover{background:var(--brass);}
+
+  /* ===== CONTENT / REELS ACCORDIONS ===== */
+  .group-label{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--brass-soft);
+    margin:28px 0 10px;
+  }
+  details.card{
+    background:var(--paper);
+    color:var(--ink);
+    border-radius:10px;
+    margin-bottom:10px;
+    overflow:hidden;
+    box-shadow:0 4px 14px rgba(0,0,0,.2);
+  }
+  details.card summary{
+    list-style:none;
+    cursor:pointer;
+    padding:14px 16px;
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:15.5px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    justify-content:space-between;
+  }
+  details.card summary::-webkit-details-marker{display:none;}
+  details.card summary .arrow{
+    font-family:var(--font-mono);
+    color:var(--brass);
+    transition:transform .2s;
+    flex-shrink:0;
+  }
+  details.card[open] summary .arrow{transform:rotate(90deg);}
+  details.card .card-body{
+    padding:0 16px 16px;
+    font-size:14px;
+  }
+  details.card .card-body p{margin:0 0 8px;}
+  details.card .card-body ul{margin:6px 0 8px;padding-left:20px;}
+  details.card .card-body li{margin-bottom:4px;}
+  .script-line{
+    font-family:var(--font-mono);
+    font-size:12.5px;
+    background:var(--paper-soft);
+    border-radius:6px;
+    padding:8px 10px;
+    margin:6px 0;
+  }
+  .script-line .en{color:var(--teal);font-weight:700;}
+  .hook{color:var(--stamp);font-weight:700;}
+
+  footer{
+    text-align:center;
+    padding:30px 16px 50px;
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<div class="passport-header">
+  <div class="kicker">Dossiê de viagem · conteúdo</div>
+  <h1>LONDRES</h1>
+  <div class="sub">01 — 02 JUL 2026 · BER ⇄ STN</div>
+
+  <div class="tickets">
+    <div class="ticket">
+      <div class="route">BER <span class="arrow">✈</span> STN</div>
+      <div class="meta">Qua 01/07 · sai <b>09:35</b> · chega <b>10:25</b></div>
+    </div>
+    <div class="ticket">
+      <div class="route">STN <span class="arrow">✈</span> BER</div>
+      <div class="meta">Qui 02/07 · sai <b>18:05</b> · chega <b>20:50</b></div>
+    </div>
+  </div>
+
+  <div class="status-strip">
+    <span>ETA: <b>OK ✓</b></span>
+    <span>Check-out Airbnb: <b>11:00 (qui)</b></span>
+    <span>Evento Heartstopper: <b>doors 18h · começa 19h</b></span>
+  </div>
+</div>
+
+<nav class="tabs">
+  <button class="tab-btn active" data-tab="dia1">Dia 1</button>
+  <button class="tab-btn" data-tab="dia2">Dia 2</button>
+  <button class="tab-btn" data-tab="conteudo">Vlogs/Reels</button>
+  <button class="tab-btn" data-tab="escola">Escola</button>
+</nav>
+
+<main>
+
+  <!-- ===================== DIA 1 ===================== -->
+  <section class="panel active" id="dia1">
+    <h2 class="section-title"><span class="day-no">QUA · 01 JUL</span>Livrarias, Big Ben, Beatles &amp; Heartstopper</h2>
+
+    <div class="day-summary">
+      <div><span class="t">10:25</span> Pousa em Stansted</div>
+      <div><span class="t">~11:50</span> Stansted Express → Liverpool Street</div>
+      <div><span class="t">12:05</span> The Common Press (Shoreditch)</div>
+      <div><span class="t">13:10</span> Gay's The Word</div>
+      <div><span class="t">14:10</span> British Library — Treasures Gallery (+ takeaway coffee)</div>
+      <div><span class="t">15:15</span> Big Ben / Westminster</div>
+      <div><span class="t">16:05</span> Buckingham Palace</div>
+      <div><span class="t">16:40</span> Savile Row (Beatles)</div>
+      <div><span class="t">17:10–17:45</span> Volta pro Airbnb, banho</div>
+      <div><span class="t">18:00–18:30</span> <span class="flag">Alexandra Palace Theatre</span></div>
+    </div>
+
+    <p style="font-family:var(--font-mono);font-size:12.5px;color:var(--paper-soft);opacity:.85;margin-top:-10px;margin-bottom:20px;">
+      ⚠️ Esse dia ficou mais cheio com as duas paradas novas. Sem o Savile Row, você chega no Airbnb ~17h10 e no evento bem antes das 18h30. <b>Com</b> o Savile Row (ele é só 10min a pé da Buckingham Palace), você chega no Airbnb ~17h40 e no evento perto das 18h30 — ainda dentro do seu limite, mas sem sobra. Se atrasar em algum ponto anterior, esse é o primeiro a cortar.
+    </p>
+
+    <a class="day-route-cta" href="https://www.google.com/maps/dir/?api=1&origin=51.5246846,-0.0718897&destination=51.5985465,-0.1373121&waypoints=51.525429,-0.125237%7C51.5299717,-0.1276759%7C51.5007292,-0.1246254%7C51.501364,-0.14189%7C51.5104697,-0.1395926%7C51.5949944,-0.130219" target="_blank" rel="noopener">🗺️ Abrir a rota do Dia 1 inteira no Google Maps</a>
+    <p style="font-family:var(--font-mono);font-size:11.5px;color:var(--paper-soft);opacity:.8;margin:-14px 0 20px;text-align:center;">Abre no app do Maps no celular. Sem modo de transporte fixado — escolha a pé/metrô em cada trecho dentro do app.</p>
+
+    <div class="timeline">
+
+      <div class="stop">
+        <div class="stop-time">~11:00 – 11:50</div>
+        <h3>Stansted Express</h3>
+        <div class="addr">London Stansted Airport → Liverpool Street Station</div>
+        <div class="tags"><span class="tag">deslocamento</span></div>
+        <p>Trem direto, ~47min, sai a cada 15-30min. Compra antecipada pelo app/site da Greater Anglia ou Trainline costuma sair bem mais barato que comprar na hora (diferença pode ser de £10+). Já compre antes de embarcar em Berlim se conseguir.</p>
+        <p class="tip">💡 Existe o trem comum (não-expresso, a partir de £14, ~1h10) bem mais barato — mas hoje o dia já é apertado, então eu manteria o Express na chegada e economizaria na volta do dia 2, onde você tem folga de sobra.</p>
+        <p class="tip">💡 Sua bagagem é só uma mochila pequena — então esse trecho todo do dia 1 é livre, sem precisar guardar nada em locker.</p>
+      </div>
+
+      <div class="stop">
+        <div class="stop-time">12:05 – 12:45</div>
+        <h3>The Common Press</h3>
+        <div class="addr">118 Bethnal Grn Rd, London E2 6DG · ter-dom 11h-18h30 · 10-15min a pé/ônibus de Liverpool St</div>
+        <div class="map-embed"><iframe src="https://maps.google.com/maps?q=51.5246846,-0.0718897&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=51.5246846,-0.0718897" target="_blank" rel="noopener">📍 Abrir no Google Maps</a>
+        <div class="tags"><span class="tag">📚 livraria</span><span class="tag">🏳️‍🌈 queer</span><span class="tag">☕ café</span></div>
+        <p><b>Pra falar de cabeça:</b> livraria-café queer e interseccional em Shoreditch, nota 4.8 — tem estúdio de podcast no fundo e uma programação semanal de leituras/workshops. Avaliações destacam a seção de fantasia queer (tipo <i>A Marvellous Light</i>, de Freya Marske) e o acervo focado em autores queer e negros. É bem perto de onde você desembarca — primeira parada do dia, sem desvio.</p>
+        <p class="tip">💡 Peça um chocolate gelado ou chá — quem visitou recomenda, e dá tempo de sentar e conversar com a câmera ali mesmo.</p>
+      </div>
+
+      <div class="stop">
+        <div class="stop-time">13:10 – 13:50</div>
+        <h3>Gay's The Word</h3>
+        <div class="addr">66 Marchmont St, London WC1N 1AB · aberta 11h–18h (fechada segunda)</div>
+        <div class="map-embed"><iframe src="https://maps.google.com/maps?q=51.525429,-0.125237&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=51.525429,-0.125237" target="_blank" rel="noopener">📍 Abrir no Google Maps</a>
+        <div class="tags"><span class="tag">📚 livraria</span><span class="tag">🏳️‍🌈 queer</span></div>
+        <p><b>Pra falar de cabeça:</b> é a livraria queer mais antiga do Reino Unido, aberta em 7 de janeiro de 1979 por um grupo socialista chamado Gay Icebreakers — a ideia era ter um espaço fixo depois que um dos fundadores, Ernest Hole, vendia livros gays e lésbicos de uma mochila itinerante em eventos. Funcionou quase como um centro comunitário desde o início: às quintas, um pianista chamado Mark Bunyan tocava na loja, e grupos como o "Lesbians and Gays Support the Miners" se reuniam ali.</p>
+        <p><b>A história mais forte pra contar:</b> em 10 de abril de 1984, a alfândega britânica (HM Customs and Excise) invadiu a loja numa operação chamada "Operation Tiger" — mandaram os clientes saírem e confiscaram um terço de todo o estoque importado, usando uma lei de 1876 (Customs Consolidation Act) que não previa defesa por mérito literário, ao contrário da lei normal de obscenidade do Reino Unido. Entre os "livros obscenos" confiscados: obras de Oscar Wilde, Jean-Paul Sartre, Tennessee Williams e Gore Vidal. Em novembro daquele ano, o gerente Paud Hegarty e os 8 diretores da loja foram formalmente acusados de "conspiração para importar material indecente" — 100 acusações no total, processo que ia pra Old Bailey (a corte criminal mais famosa de Londres). A defesa foi feita pelo mesmo advogado que defendeu a revista Oz em 1971 e o Gay News em 1977. Autores como Gore Vidal e Angela Carter, e editoras como Penguin e Faber, doaram dinheiro pra campanha de defesa. Em 1986, o caso foi arquivado e a maioria dos livros devolvida — só 19 títulos continuaram "oficialmente obscenos" segundo o governo britânico.</p>
+        <p>Hoje a loja ainda existe no mesmo endereço, sobreviveu a um quase-fechamento em 2007 (aluguel alto + concorrência da internet, salva por campanha popular) e aparece dramatizada no filme <i>Pride</i> (2014). Tem recomendações escritas à mão pelos próprios funcionários nas estantes.</p>
+        <p class="tip">💡 Pergunte no balcão por recomendações — eles adoram indicar.</p>
+      </div>
+
+      <div class="stop">
+        <div class="stop-time">14:10 – 14:50</div>
+        <h3>British Library — Treasures Gallery</h3>
+        <div class="addr">96 Euston Rd, London NW1 2DB · qua 9h30-20h · entrada gratuita</div>
+        <div class="map-embed"><iframe src="https://maps.google.com/maps?q=51.5299717,-0.1276759&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=51.5299717,-0.1276759" target="_blank" rel="noopener">📍 Abrir no Google Maps</a>
+        <div class="tags"><span class="tag">📚 literário</span><span class="tag">🎸 beatles</span><span class="tag">☕ café</span></div>
+        <p><b>Pra falar de cabeça:</b> a Treasures Gallery é gratuita e permanente (esquece a "Fairy Tales", essa sim é a parte séria) — e tem muito mais do que parece de fora. Os destaques certos pra mencionar:</p>
+        <p><b>📜 Manuscritos:</b> os cadernos de anotações de <b>Leonardo da Vinci</b> (escritos de trás pra frente, em espelho — ele era canhoto e meio paranoico com gente roubando suas ideias), partituras manuscritas de <b>Beethoven</b> com correções e rabiscos dele mesmo, e uma cópia da <b>Bíblia de Gutenberg</b> (1455) — o primeiro livro impresso em massa da história ocidental, marco zero da revolução da imprensa.</p>
+        <p><b>📚 Literatura:</b> o manuscrito original de <i>Alice no País das Maravilhas</i>, escrito à mão por Lewis Carroll como presente pra uma criança real (Alice Liddell) antes de virar livro publicado — e letras de música escritas à mão pelos próprios Beatles, incluindo rascunhos com versos riscados e trocados.</p>
+        <p><b>⚖️ História:</b> uma das cópias originais da <b>Magna Carta</b> de 1215 — o documento que limitou pela primeira vez o poder de um rei inglês, base de boa parte do direito constitucional moderno.</p>
+        <p>Tudo isso numa sala só, sem ticket, e normalmente sem fila.</p>
+        <p>Sobre o café: tem o <i>Library Café</i> logo na entrada — pega o takeaway coffee ali mesmo antes de entrar na galeria.</p>
+        <p class="tip">💡 A galeria é pequena (cabe em 30-40min), então o tempo todo aqui já inclui o café. Boa luz natural perto da entrada pra um plano rápido com o copo na mão.</p>
+      </div>
+
+      <div class="stop">
+        <div class="stop-time">15:15 – 15:45</div>
+        <h3>Big Ben / Houses of Parliament</h3>
+        <div class="addr">Westminster, London SW1A 0AA</div>
+        <div class="map-embed"><iframe src="https://maps.google.com/maps?q=51.5007292,-0.1246254&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=51.5007292,-0.1246254" target="_blank" rel="noopener">📍 Abrir no Google Maps</a>
+        <div class="tags"><span class="tag">🏛️ turístico</span><span class="tag">🎓 escola</span></div>
+        <p><b>Pra falar de cabeça (e usar na escola):</b> "Big Ben" tecnicamente é o nome do <i>sino</i>, não da torre — a torre se chama oficialmente <i>Elizabeth Tower</i> desde 2012 (renomeada pro Jubileu de Diamante da Rainha; antes disso era só "Clock Tower"). O sino pesa <b>13,7 toneladas</b>.</p>
+        <p><b>A história mais engraçada:</b> o primeiro Big Ben, fundido em 1856, rachou durante um teste em 1857 — disseram que o som era "como um veneno potente, a vibração penetra cada veia do corpo". Fundiram um segundo sino em 1858 (transportado até a torre por 16 cavalos, levou 18 horas só pra puxar pelos últimos 60 metros) — e esse <b>também rachou</b>, dois meses depois de tocar pela primeira vez em 1859! Por causa disso, o sino ficou <b>4 anos em silêncio</b>. A solução: giraram o sino um pouco e trocaram o martelo por um mais leve, pra bater numa parte sem rachadura. É esse mesmo sino rachado, nunca trocado, que você ainda ouve hoje — daí o tom levemente diferente que dá pra notar se prestar atenção.</p>
+        <p><b>De onde vem o nome:</b> ninguém sabe com certeza. A teoria mais aceita é que batizaram em homenagem a Sir Benjamin Hall, o político responsável pela obra (e um homem grandalhão, apelidado "Big Ben" no parlamento). Outra teoria mais divertida: o nome viria de Benjamin Caunt, um lutador de boxe peso-pesado da época, também chamado "Big Ben". Curiosidade extra: durante a Primeira Guerra o sino foi silenciado pra não guiar aviões inimigos, e durante a Segunda a torre sobreviveu a um bombardeio que destruiu a Câmara dos Comuns ao lado — o relógio nunca parou de funcionar.</p>
+        <p class="tip">💡 Melhor foto: de Westminster Bridge, com o London Eye no fundo, ou das margens do South Bank, do outro lado do rio. Não dá pra entrar sem reserva de tour com bastante antecedência — fica só na parte de fora mesmo.</p>
+      </div>
+
+      <div class="stop">
+        <div class="stop-time">16:05 – 16:25</div>
+        <h3>Buckingham Palace</h3>
+        <div class="addr">London SW1A 1AA · ~20min a pé do Big Ben, via St James's Park</div>
+        <div class="map-embed"><iframe src="https://maps.google.com/maps?q=51.501364,-0.14189&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=51.501364,-0.14189" target="_blank" rel="noopener">📍 Abrir no Google Maps</a>
+        <div class="tags"><span class="tag">🏛️ turístico</span><span class="tag">📰 plano B</span></div>
+        <p><b>Pra falar de cabeça:</b> mesmo sem pegar a troca da guarda das 11h (matematicamente impossível com seu horário de chegada), vale o desvio — é um dos pontos mais fotografados do Reino Unido, com nota 4.5 e quase 200 mil avaliações.</p>
+        <p><b>Números que impressionam:</b> o palácio tem <b>775 cômodos</b> — 19 salões de estado, 52 quartos reais/de hóspedes, 188 quartos de funcionários, 92 escritórios e 78 banheiros. Tem 1.514 portas, 760 janelas (limpas a cada 6 semanas) e mais de 350 relógios, todos cuidados por um relojoeiro que trabalha só pra isso. O jardim é o maior jardim privado de Londres — tem até lago e pista de helicóptero.</p>
+        <p><b>O truque da bandeira (ótimo pra mostrar na câmera):</b> se a bandeira que está hasteada é o <i>Royal Standard</i> (com os brasões de Inglaterra, Escócia e Irlanda), o rei está dentro do palácio naquele momento. Se for a Union Jack normal, ele não está. É literalmente assim que qualquer pessoa na rua sabe se o monarca está em casa.</p>
+        <p><b>Curiosidade de guerra:</b> durante a Segunda Guerra Mundial, o palácio foi bombardeado <b>9 vezes</b> pelos alemães — e o rei George VI e a rainha consorte (mais tarde "Queen Mum") se recusaram a sair, mesmo aconselhados a evacuar. Em 1982, um homem chamado Michael Fagan invadiu o palácio e chegou a entrar no quarto da Rainha Elizabeth II enquanto ela dormia — ela conversou com ele até a segurança chegar.</p>
+        <p>O caminho até lá, por St James's Park, já é bonito por si só e rende B-roll. Boa narrativa honesta pro vídeo: "tentei pegar a troca da guarda e não consegui, mas olha o que vi no caminho".</p>
+        <p class="tip">💡 Fins de semana ficam muito mais cheios — numa quarta-feira deve estar tranquilo. Photos melhores: de frente aos portões, ou da Victoria Memorial (o monumento circular bem na frente).</p>
+      </div>
+
+      <div class="stop optional">
+        <span class="badge-opt">se sobrar tempo</span>
+        <div class="stop-time">16:40 – 16:55</div>
+        <h3>3 Savile Row (Beatles)</h3>
+        <div class="addr">3 Savile Row, Mayfair, London W1S 3PB · ~15min a pé da Buckingham Palace, via Green Park</div>
+        <div class="map-embed"><iframe src="https://maps.google.com/maps?q=51.5104697,-0.1395926&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=51.5104697,-0.1395926" target="_blank" rel="noopener">📍 Abrir no Google Maps</a>
+        <div class="tags"><span class="tag">🎸 beatles</span><span class="tag">📰 notícia recente</span></div>
+        <p><b>Pra falar de cabeça (e é furo de reportagem!):</b> esse prédio era a sede da Apple Corps dos Beatles, e no telhado dele a banda fez, em 30 de janeiro de 1969, os 42 minutos finais de apresentação ao vivo da carreira — com o tecladista convidado Billy Preston. Foi gravado com 10 câmeras (5 no telhado, 1 num prédio do outro lado da rua, 3 na rua pra filmar a reação do público, e 1 escondida na recepção do prédio).</p>
+        <p><b>A história completa, vale contar com detalhes:</b> a ideia de serem interrompidos pela polícia tinha sido sugerida pelo próprio Paul McCartney semanas antes — ele queria ser "expulso à força, ainda tentando tocar". E foi exatamente isso que aconteceu: funcionárias de escritórios vizinhos se debruçaram nas janelas pra ouvir, motoristas pararam o trânsito buzinando, e um vizinho direto, Stanley Davis, ligou furioso reclamando "quero essa porcaria de barulho parando, não consigo nem usar meu telefone". A polícia chegou bem no meio da segunda tentativa de "Don't Let Me Down" — e durante "Get Back", McCartney improvisou um verso pra zoar a situação: <i>"You've been playing on the roofs again, and you know your mama doesn't like it — she's gonna have you arrested!"</i>. Ringo disse de brincadeira pra polícia "não me coloca as algemas!", e Lennon fechou o show com a frase mais famosa: <i>"I'd like to say thank you on behalf of the group and ourselves, and I hope we've passed the audition."</i></p>
+        <p>O policial que liderou a operação, Ray Shayler, tinha 25 anos e disse décadas depois que não se arrepende — a delegacia ficava a só 150 metros do prédio. Foi a última apresentação pública dos Beatles antes do fim da banda.</p>
+        <p><b>O gancho de notícia atual:</b> em maio de 2026 — bem recente — a Apple Corps anunciou que vai reabrir o prédio em 2027 como museu, "The Beatles at 3 Savile Row", com acesso ao telhado. Hoje só dá pra ver a fachada, mas fãs sempre ficam tirando foto ali na porta mesmo assim.</p>
+        <p class="tip">💡 Fica bem perto da Buckingham Palace (10-15min a pé por Green Park), mas adicionar essa parada empurra sua chegada no evento pra perto das 18h30 — seu próprio limite. Se algo atrasou antes, corta esse e vai direto pro Airbnb.</p>
+      </div>
+
+      <div class="stop">
+        <div class="stop-time">17:10 – 17:45</div>
+        <h3>Volta pro Airbnb</h3>
+        <div class="addr">57 Sydney Rd, N10 2LY</div>
+        <div class="map-embed"><iframe src="https://maps.google.com/maps?q=51.6015914,-0.1450027&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=51.6015914,-0.1450027" target="_blank" rel="noopener">📍 Abrir no Google Maps</a>
+        <div class="tags"><span class="tag">🚿 banho</span></div>
+        <p>Banho, troca de roupa, carrega a bateria das câmeras/celular. Sem o Savile Row, você chega ~17h10 e tem folga; com ele, chega ~17h40 e precisa ser rápido.</p>
+      </div>
+
+      <div class="stop">
+        <div class="stop-time">18:00 – ~21:00</div>
+        <h3>Alexandra Palace Theatre — Heartstopper Vol. 6</h3>
+        <div class="addr">Alexandra Palace Way, London N22 7AY · 15-20min a pé do Airbnb</div>
+        <div class="map-embed"><iframe src="https://maps.google.com/maps?q=51.5949944,-0.130219&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=51.5949944,-0.130219" target="_blank" rel="noopener">📍 Abrir no Google Maps</a>
+        <div class="tags"><span class="tag">📚 livro</span><span class="tag">🏳️‍🌈 queer</span><span class="tag">🎬 evento</span></div>
+        <p><b>Pra falar de cabeça:</b> evento da Waterstones com a Alice Oseman, na véspera do lançamento oficial do Heartstopper Vol. 6 — drawalong ao vivo, quiz da "Osemanverse" e entrega do seu exemplar, que vem <b>autografado pela própria Alice Oseman + tote bag exclusiva do livro</b>.</p>
+        <p><b>A história do prédio, rica de detalhes:</b> Alexandra Palace ("Ally Pally") abriu em 1873 como "The People's Palace" — e <b>16 dias depois</b>, um incêndio na cúpula destruiu boa parte do prédio (já tinha recebido 120 mil visitantes nesses poucos dias). Foi reconstruído. Décadas depois, em 2 de novembro de 1936, a BBC fez dali a primeira transmissão pública de TV em alta definição do mundo — só que "alta definição" na época eram 405 linhas, decidido numa competição entre dois sistemas concorrentes (Baird vs. Marconi-EMI) que disputavam moeda no ar pra ver quem transmitia primeiro. A audiência da primeira transmissão oficial: cerca de <b>500 pessoas</b> em toda a Inglaterra, porque TVs eram caríssimas. Curiosidade boa: durante os testes, tanta energia passava pela antena de 65 metros no topo do prédio que faíscas literalmente saltavam dos garfos dos funcionários enquanto almoçavam no refeitório.</p>
+        <p>O prédio pegou fogo de novo em 1980 (destruiu metade do edifício, mas o teatro e os estúdios da BBC sobreviveram), e ficou fechado por anos até reabrir em 1988. Hoje é onde acontece, entre outras coisas, o campeonato mundial de dardos (PDC) e o programa <i>Later... with Jools Holland</i>.</p>
+        <p class="tip">💡 Como sua cadeira é marcada, chegar 18h30 é suficiente — mas vale chegar perto das 18h se quiser garantir fila mais tranquila pra retirar seu livro autografado + tote.</p>
+      </div>
+
+      <div class="stop">
+        <div class="stop-time">~21:15 – 21:45</div>
+        <h3>Jantar barato no caminho de volta</h3>
+        <div class="addr">Muswell Hill Best Kebab — 124 Alexandra Park Rd, N10 2AH · fecha 22h (qua)</div>
+        <div class="map-embed"><iframe src="https://maps.google.com/maps?q=51.5985465,-0.1373121&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=51.5985465,-0.1373121" target="_blank" rel="noopener">📍 Abrir no Google Maps</a>
+        <div class="tags"><span class="tag">💸 barato</span><span class="tag">🍽️ jantar</span></div>
+        <p><b>Opção 1 (mais barata e mais perto):</b> Muswell Hill Best Kebab, na mesma rua que o Korto — segundo quem já foi, fica a <b>5min a pé do Ally Pally</b>, então é literalmente no caminho de volta, sem desvio. Nota 4.4, e um grupo de 7 pessoas pagou £42 no total (~£6/pessoa) — bem dentro do seu orçamento.</p>
+        <p><b>Opção 2 (se quiser sentar):</b> La Porchetta (265 Muswell Hill Broadway) — pizzaria italiana barata (nota 4.3, a mais econômica da região), e tem gente nas avaliações dizendo que é point clássico de quem vai a evento no Ally Pally, antes ou depois. Fecha 22h também.</p>
+        <p class="tip">⚠️ Os dois fecham às 22h numa quarta — se o evento atrasar, vai direto sem enrolar no caminho. Se perder o horário, a Capital Restaurant (Wood Green, ~15-20min) abre até meia-noite, mas é um desvio maior.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== DIA 2 ===================== -->
+  <section class="panel" id="dia2">
+    <h2 class="section-title"><span class="day-no">QUI · 02 JUL · lançamento oficial do livro</span>Baker Street → Camden → Kebab da Taylor → Douglas Adams → voo</h2>
+
+    <p style="font-family:var(--font-mono);font-size:12.5px;color:var(--paper-soft);opacity:.85;margin-top:-10px;margin-bottom:20px;">
+      Dia bem mais leve. Check-out, pega qualquer takeaway pelo caminho, e vai embora. Menos paradas, mais tempo em cada uma.
+    </p>
+
+    <div class="day-summary">
+      <div><span class="t">08:00</span> Arruma a mochila + check-out</div>
+      <div><span class="t">08:30</span> Takeaway qualquer no primeiro lugar aberto (saindo já com a mochila)</div>
+      <div><span class="t">09:30</span> Baker Street — Sherlock Holmes</div>
+      <div><span class="t">10:15</span> <span class="flag">Camden Town (opcional, mas fica no caminho)</span></div>
+      <div><span class="t">12:00</span> Kentish Delight — kebab da Taylor Swift (almoço)</div>
+      <div><span class="t">13:10</span> Fenchurch Street — Douglas Adams</div>
+      <div><span class="t">13:35</span> Liverpool Street → trem comum (mais barato)</div>
+      <div><span class="t">18:05</span> <span class="flag">Voo STN → BER</span></div>
+    </div>
+
+    <a class="day-route-cta" href="https://www.google.com/maps/dir/?api=1&origin=51.5984649,-0.1373349&destination=51.518077,-0.0815777&waypoints=51.523767,-0.1585557%7C51.5411058,-0.1426136%7C51.5515421,-0.1413328%7C51.5117122,-0.0790619" target="_blank" rel="noopener">🗺️ Abrir a rota do Dia 2 no Google Maps</a>
+    <p style="font-family:var(--font-mono);font-size:11.5px;color:var(--paper-soft);opacity:.8;margin:-14px 0 20px;text-align:center;">Inclui Camden como parada. Abre no app, sem modo fixado.</p>
+
+    <div class="timeline">
+
+      <div class="stop">
+        <div class="stop-time">08:00 – 08:30</div>
+        <h3>Arruma a mochila + check-out</h3>
+        <div class="addr">57 Sydney Rd, N10 2LY</div>
+        <div class="tags"><span class="tag">🎒 logística</span></div>
+        <p>Faz a mochila, resolve o check-out, pega qualquer coisa pra comer que esteja aberta pelo caminho — padaria, café, minimercado, o que aparecer. Sem parada específica planejada.</p>
+        <p class="tip">⚠️ Confirma com o anfitrião se o check-out pode ser remoto (caixa de chave/código) ou se precisa devolver a chave em mãos — se for em mãos, faz isso antes de saír.</p>
+      </div>
+
+      <div class="stop">
+        <div class="stop-time">09:30 – 10:00</div>
+        <h3>Baker Street — Sherlock Holmes</h3>
+        <div class="addr">221b Baker St, NW1 6XE · ~35min de Muswell Hill</div>
+        <div class="map-embed"><iframe src="https://maps.google.com/maps?q=51.523767,-0.1585557&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=51.523767,-0.1585557" target="_blank" rel="noopener">📍 Abrir no Google Maps</a>
+        <div class="tags"><span class="tag">📚 literário</span><span class="tag">💸 grátis</span></div>
+        <p><b>Pra falar de cabeça:</b> a estátua de bronze do Sherlock Holmes (de 1999, patrocinada pelo banco Abbey National) fica bem na saída da estação Baker Street — totalmente grátis.</p>
+        <p><b>A curiosidade mais incrível:</b> quando Conan Doyle escreveu <i>A Study in Scarlet</i> em 1887 e inventou "221B Baker Street", esse número <b>não existia</b> — a numeração da rua só chegava aos 100 e poucos. Nos anos 1930, quando Baker Street foi remunerada, o número 221 surgiu de verdade — bem na sede do banco Abbey National, que passou a receber até 30 cartas por mês de fãs endereçadas a "Sherlock Holmes". O banco contratou uma <b>secretária oficial pra responder as cartas</b>, explicando que o detetive tinha se aposentado pra criar abelhas em Sussex.</p>
+        <p>Quando o museu abriu em 1990 — fisicamente entre os números 237 e 241 — gerou uma disputa legal de <b>15 anos</b> com o banco sobre quem recebia a correspondência do detetive. Só em 2005 o Royal Mail oficializou o museu — e as cartas pra Sherlock ainda chegam até hoje.</p>
+        <p class="tip">💡 O museu por dentro custa <b>£16-19</b> e <b>não aceita mochila</b> — fica só na estátua e na porta, de graça.</p>
+      </div>
+
+      <div class="stop optional">
+        <span class="badge-opt">sugestão no caminho</span>
+        <div class="stop-time">10:15 – 11:45</div>
+        <h3>Camden Town</h3>
+        <div class="addr">Camden Lock Market · ~15min de Baker Street (Northern Line, 2 paradas)</div>
+        <div class="map-embed"><iframe src="https://maps.google.com/maps?q=51.5411058,-0.1426136&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=51.5411058,-0.1426136" target="_blank" rel="noopener">📍 Abrir no Google Maps</a>
+        <div class="tags"><span class="tag">🎸 música</span><span class="tag">🎬 reels</span><span class="tag">🛍️ mercado</span></div>
+        <p><b>Por que fica no caminho:</b> Baker Street → Camden Town → Kentish Town são basicamente três paradas seguidas na Northern Line. É o desvio de menor custo possível.</p>
+        <p><b>Pra falar de cabeça:</b> Camden Lock é o principal mercado de rua de Londres com identidade alternativa/punk/goth — começou nos anos 1970 e hoje tem mais de 1.000 bancas. Mas o detalhe mais forte pro seu conteúdo: <b>Amy Winehouse</b> morava em Camden e o bairro moldou completamente a música dela — tem uma estátua dela em tamanho real no <i>Stables Market</i>, inaugurada em 2014, rodeada de fãs com flores o tempo todo. Antes de Amy, Camden foi berço de inúmeras bandas britânicas: o <i>Roundhouse</i> (anfiteatro histórico ali) recebeu Jimi Hendrix em 1966, The Doors em 1968, e Led Zeppelin. É basicamente o bairro que inventou o rock alternativo britânico dos anos 70-90.</p>
+        <p class="tip">💡 Vale o desvio se você quiser mais B-roll e uma parada com mais energia visual antes do almoço. Sem Camden, vai direto de Baker Street pra Kentish Town — também Northern Line.</p>
+      </div>
+
+      <div class="stop">
+        <div class="stop-time">12:00 – 12:50</div>
+        <h3>Kentish Delight (almoço)</h3>
+        <div class="addr">381 Kentish Town Rd, NW5 2TJ · abre meio-dia · halal</div>
+        <div class="map-embed"><iframe src="https://maps.google.com/maps?q=51.5515421,-0.1413328&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=51.5515421,-0.1413328" target="_blank" rel="noopener">📍 Abrir no Google Maps</a>
+        <div class="tags"><span class="tag">🎵 taylor swift</span><span class="tag">🍽️ almoço</span><span class="tag">🎬 reels</span></div>
+        <p><b>Pra falar de cabeça:</b> essa é a kebab shop onde a Taylor Swift pedia comida quando namorava o Joe Alwyn (de Tufnell Park, ali perto) — apareceu no clipe de "End Game" (2017, com Ed Sheeran e Future), e antes dos shows do Eras Tour em Londres ela fez um pedido de ~£450 em kebabs pra equipe. O pedido favorito dela é chicken shawarma com bastante salada, maionese de alho e chili sauce. O dono se chama Ahmed — fãs relatam que ele bate um papo com quem visita por causa da Taylor. Preço real: shawarma pequeno £7,90 + porção de fritas £2,20. Tudo halal.</p>
+        <p class="tip">💡 Pede o mesmo combo da Taylor e grava comparando com um döner de Berlim. Chega logo quando abre (meio-dia) pra não ter fila.</p>
+      </div>
+
+      <div class="stop">
+        <div class="stop-time">13:10 – 13:25</div>
+        <h3>Fenchurch Street — Douglas Adams</h3>
+        <div class="addr">Fenchurch Street Station, EC3M 4AJ · 10min a pé de Liverpool Street</div>
+        <div class="map-embed"><iframe src="https://maps.google.com/maps?q=51.5117122,-0.0790619&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=51.5117122,-0.0790619" target="_blank" rel="noopener">📍 Abrir no Google Maps</a>
+        <div class="tags"><span class="tag">📚 literário</span><span class="tag">🔢 42</span><span class="tag">💸 grátis</span></div>
+        <p><b>Pra falar de cabeça (combina com sua tatuagem do 42!):</b> Douglas Adams batizou a personagem Fenchurch, em <i>So Long, and Thanks for All the Fish</i>, com o nome dessa estação de trem — ele achou que "Fenchurch Street" parecia nome de garota.</p>
+        <p><b>A história real do número 42:</b> o supercomputador Deep Thought leva <b>7,5 milhões de anos</b> pra calcular a resposta pra "a Pergunta Fundamental sobre a Vida, o Universo e Tudo Mais" — e a resposta é simplesmente "42". Por décadas, fãs inventaram teorias matemáticas (binário, base 13, ASCII). Mas Adams sempre disse: <i>"Foi uma piada. Sentei na minha mesa, olhei pro jardim e pensei: '42 serve'."</i> Stephen Fry afirma que Adams revelou a ele o "verdadeiro" motivo antes de morrer — mas jurou nunca contar pra ninguém.</p>
+        <p>Tem até um pub dentro da estação chamado "The Fen", se quiser uma última cerveja antes do aeroporto.</p>
+        <p class="tip">💡 Zero esforço extra: já é a estação vizinha de Liverpool Street. Só uma foto rápida na placa e pronto.</p>
+      </div>
+
+      <div class="stop optional">
+        <span class="badge-opt">versão fã raiz</span>
+        <div class="stop-time">entre Baker Street e Kentish Delight</div>
+        <h3>Islington / Angel — Douglas Adams (versão completa)</h3>
+        <div class="addr">Arlington Ave, N1 · Angel station como referência</div>
+        <div class="map-embed"><iframe src="https://maps.google.com/maps?q=51.5362666,-0.0900848&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=51.5362666,-0.0900848" target="_blank" rel="noopener">📍 Abrir no Google Maps</a>
+        <div class="tags"><span class="tag">📚 literário</span><span class="tag">🔢 42</span></div>
+        <p>Douglas Adams morou em Islington e escreveu boa parte do primeiro livro lá. Na Arlington Avenue ficava o apartamento dos amigos a quem ele dedicou o livro ("the Arlingtonians, for tea and sympathy"). Custa uns 30-40min extra — Camden é a opção mais leve se quiser só uma parada extra no caminho.</p>
+      </div>
+
+      <div class="stop">
+        <div class="stop-time">13:35 – ~14:45</div>
+        <h3>Liverpool Street → trem comum (Greater Anglia)</h3>
+        <div class="addr">~30min de Kentish Town até Liverpool Street</div>
+        <div class="map-embed"><iframe src="https://maps.google.com/maps?q=51.518077,-0.0815777&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=51.518077,-0.0815777" target="_blank" rel="noopener">📍 Abrir no Google Maps</a>
+        <div class="tags"><span class="tag">✈️ voo</span><span class="tag">💸 mais barato</span></div>
+        <p>Trem comum da <b>Greater Anglia</b> pra Stansted, a partir de <b>£14</b> (Express sai de £19,90+). Leva ~1h10, chega no Stansted por volta das <b>15h45</b> — quase 2h15 de folga antes do voo. Compra no Trainline ou National Rail, pesquisa "Greater Anglia" e não "Stansted Express".</p>
+      </div>
+
+    </div>
+
+    <div class="day-summary" style="margin-top:24px;">
+      <b style="font-family:var(--font-display);font-size:14px;color:var(--brass-soft);">📌 Ficou de fora desta vez (pra outra viagem):</b>
+      <div style="margin-top:8px;">Dalloway Terrace (Virginia Woolf, Bloomsbury), Notting Hill (livraria do filme + porta azul do Richard Curtis), Highgate Cemetery (túmulo do Douglas Adams). Boa desculpa pra voltar um dia com mais tempo.</div>
+    </div>
+  </section>
+
+
+  <!-- ===================== CONTEÚDO ===================== -->
+  <section class="panel" id="conteudo">
+    <h2 class="section-title"><span class="day-no">Roteiro de conteúdo</span>Vlogs do YouTube + Reels</h2>
+
+    <div class="group-label">Vlogs (30-40min)</div>
+
+    <details class="card" open>
+      <summary>Vlog 1 — Dia 1: livrarias queer, Big Ben, Beatles <span class="arrow">▶</span></summary>
+      <div class="card-body">
+        <p><span class="hook">Hook de abertura:</span> "Pousei em Londres há 20 minutos e já estou correndo pra uma livraria queer" — mostra a chegada, o trem, a pressa boa.</p>
+        <ul>
+          <li><b>Bloco 1:</b> Stansted Express + chegada (rápido, tipo "transição de viagem")</li>
+          <li><b>Bloco 2:</b> The Common Press — livraria-café queer em Shoreditch, estúdio de podcast no fundo</li>
+          <li><b>Bloco 3:</b> Gay's The Word — mostra as estantes, conta a história de 1984, compra/recomenda um livro</li>
+          <li><b>Bloco 4:</b> British Library — takeaway coffee na entrada, Treasures Gallery (manuscrito de Alice no País das Maravilhas, letras dos Beatles)</li>
+          <li><b>Bloco 5:</b> Big Ben — desmistifica o nome (Elizabeth Tower)</li>
+          <li><b>Bloco 6:</b> Buckingham Palace — "tentei pegar a troca da guarda e não consegui, mas olha o que vi"</li>
+          <li><b>Bloco 7 (se der):</b> Savile Row, fecha com o gancho dos Beatles/museu novo</li>
+        </ul>
+        <p><span class="hook">Fechamento:</span> "agora é correr pra Alexandra Palace" — deixa gancho pro vídeo do evento.</p>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary>Vlog 2 — O evento do Heartstopper <span class="arrow">▶</span></summary>
+      <div class="card-body">
+        <p>Já está no seu radar — sugestão de estrutura: fila/expectativa → entrando no teatro → drawalong/quiz da Alice Oseman → reação ao pegar o livro → resumo emocional saindo do evento.</p>
+        <p class="script-line">💡 Curiosidade pra plantar no meio do vídeo: Alexandra Palace foi onde a BBC fez a primeira transmissão de TV pública do mundo, em 1936 — "the birthplace of television", e hoje é palco de um lançamento de livro queer. Bom contraste histórico.</p>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary>Vlog 3 — Dia 2: Baker Street, Camden, Taylor Swift, Douglas Adams <span class="arrow">▶</span></summary>
+      <div class="card-body">
+        <p><span class="hook">Hook:</span> "Hoje é dia de lançamento oficial do livro — e o primeiro programa do dia é... ir no kebab favorito da Taylor Swift."</p>
+        <ul>
+          <li><b>Bloco 1:</b> mochila arrumada, check-out, takeaway rápido, saindo</li>
+          <li><b>Bloco 2:</b> Baker Street — foto na estátua do Sherlock Holmes e na porta do 221B</li>
+          <li><b>Bloco 3 (se for):</b> Camden Town — estátua da Amy Winehouse, mercado, energia de rua</li>
+          <li><b>Bloco 4:</b> Kentish Delight — conta a história, pede o combo da Taylor, primeira mordida</li>
+          <li><b>Bloco 5:</b> Fenchurch Street — a piada do nome, e corrida pro aeroporto</li>
+        </ul>
+      </div>
+    </details>
+
+    <div class="day-summary" style="margin:18px 0;">
+      <b style="font-family:var(--font-display);font-size:14px;color:var(--brass-soft);">🎬 Sobre pedir mais 3 vlogs</b>
+      <div style="margin-top:8px;font-family:var(--font-body);">Minha opinião sincera: filmar 6 vlogs <i>diferentes</i> em 2 dias é puxado se cada um exigir cenas novas — mas dá pra chegar nos 6 sem gravar mais nada além do que já está no roteiro, <b>recortando o mesmo material por tema</b> em vez de só por dia. Você já fala bem e tem bagagem pra sustentar narração mais longa, então o que rende os 30-40min não é ter mais cenas, é ter mais contexto/história em cada corte. Os 3 abaixo são exatamente isso: usam o material dos Vlogs 1-3, só que reorganizado.</div>
+    </div>
+
+    <details class="card">
+      <summary>Vlog 4 — Caça aos lugares queer de Londres <span class="arrow">▶</span></summary>
+      <div class="card-body">
+        <p><span class="hook">Hook:</span> "Fui visitar 3 lugares queer em Londres que não estão em nenhum guia de turismo — e um deles quase foi fechado pelo governo."</p>
+        <p>Recombina: Gay's The Word + The Common Press + a fila/atmosfera do evento Heartstopper (já filmado pros vlogs 1 e 2). O que muda é o ângulo: em vez de "meu dia 1", o fio condutor é "história e presença queer em Londres hoje" — dá espaço pra você comentar mais a fundo o caso de 1984, a cena de Shoreditch, e fechar com a noite no Ally Pally como o "presente" dessa história.</p>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary>Vlog 5 — Easter eggs literários e pop: Beatles, Sherlock, Douglas Adams <span class="arrow">▶</span></summary>
+      <div class="card-body">
+        <p><span class="hook">Hook:</span> "Essa tatuagem só faz sentido numa esquina específica de Londres — e eu fui até lá."</p>
+        <p>Recombina: 3 Savile Row (Beatles) + Baker Street (Sherlock) + Fenchurch Street (Douglas Adams, com gancho na sua tatuagem do 42). Três referências de ficção/pop culture "escondidas" na cidade real — formato tipo "caça ao tesouro cultural", ótimo pra quem gosta de trivia. Puxa também o gancho do museu novo dos Beatles (2027) pra fechar com "vou voltar quando abrir".</p>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary>Vlog 6 — Book haul de Londres: tudo que comprei e li <span class="arrow">▶</span></summary>
+      <div class="card-body">
+        <p><span class="hook">Hook:</span> "Voltei de Londres com mais livros do que roupa limpa — vem ver o que comprei."</p>
+        <p>Recombina: Gay's The Word + The Common Press + British Library (Treasures Gallery, manuscritos) + o Heartstopper autografado. Formato clássico de "book haul" — mostra cada compra, conta o contexto de onde veio, e fecha avaliando qual te deixou mais animado. Esse é o mais fácil de cortar pro rodíndica especificamente, já que é 100% sobre livros.</p>
+      </div>
+    </details>
+
+    <div class="day-summary" style="margin:6px 0 22px;">
+      <b style="font-family:var(--font-display);font-size:14px;color:var(--brass-soft);">🎯 Regra de ouro dos reels</b>
+      <div style="margin-top:8px;font-family:var(--font-body);">Todo reels abaixo tem <b>1:01 ou mais</b> — nunca menos. E os 3 primeiros segundos decidem se a pessoa continua. Em vez de começar pela introdução/contexto, comece pelo ponto mais forte: o objeto bem perto da câmera, o corte mais visual, ou uma frase que crie uma lacuna de curiosidade ("quase foi fechada", "ninguém sabe o nome real", "vai desaparecer em 2027"). O contexto/explicação vem DEPOIS do gancho, nunca antes.</div>
+    </div>
+
+    <div class="group-label">Reels — @rodindica (literário, em português)</div>
+
+    <details class="card">
+      <summary>1. A livraria gay mais antiga do Reino Unido <span class="arrow">▶</span></summary>
+      <div class="card-body">
+        <p class="script-line"><b>Duração:</b> ~1:15 · <b>Gancho (0:00-0:03):</b> close no letreiro "Gay's The Word" + corte seco pra dentro, e você já fala direto: <i>"Essa livraria quase foi fechada pelo governo britânico."</i> (sem saudação, sem "oi gente" — direto no fato).</p>
+        <ul>
+          <li><b>0:03-0:15:</b> panorâmica rápida das estantes (mostra volume, cor, movimento)</li>
+          <li><b>0:15-0:45:</b> conta o caso de 1984 — alfândega britânica processou os donos por "obscenidade" ao importar livros gays, o caso virou bandeira do movimento LGBT e foi dramatizado no filme <i>Pride</i> (2014)</li>
+          <li><b>0:45-1:00:</b> mostra o livro que comprou e por que escolheu</li>
+          <li><b>1:00-1:15:</b> fechamento: "e ela continua aqui, em 2026" + pergunta pro comentário ("qual seu livro queer favorito?")</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary>2. O manuscrito original de Alice no País das Maravilhas <span class="arrow">▶</span></summary>
+      <div class="card-body">
+        <p class="script-line"><b>Duração:</b> ~1:10 · <b>Gancho (0:00-0:03):</b> plano bem fechado na vitrine do manuscrito (sem flash), e você sussurra/fala baixo: <i>"Isso tem 160 anos e está a um metro de mim."</i></p>
+        <ul>
+          <li><b>0:03-0:20:</b> revela o cenário (você com café na mão, dentro da Treasures Gallery, British Library — entrada gratuita)</li>
+          <li><b>0:20-0:45:</b> a curiosidade: Lewis Carroll escreveu o manuscrito à mão pra uma criança específica, Alice Liddell, antes de virar livro publicado</li>
+          <li><b>0:45-1:00:</b> bônus no mesmo cômodo: letras manuscritas dos próprios Beatles</li>
+          <li><b>1:00-1:10:</b> fechamento: "tudo isso de graça, no meio de Londres"</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary>3. A livraria que inspirou um filme <span class="arrow">▶</span></summary>
+      <div class="card-body">
+        <p class="script-line"><b>Duração:</b> ~1:05 · <b>Gancho (0:00-0:03):</b> close no título "The Common Press" + voz: <i>"Essa livraria tem estúdio de podcast no fundo — em Shoreditch."</i></p>
+        <ul>
+          <li><b>0:03-0:20:</b> entra, mostra o interior com o café</li>
+          <li><b>0:20-0:50:</b> revela: é uma das únicas livrarias-café queer de Londres, com foco em fantasia queer e autores queer e negros</li>
+          <li><b>0:50-1:05:</b> mostra o estúdio no fundo, fecha</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary>4. Retirando o Heartstopper Vol. 6 autografado <span class="arrow">▶</span></summary>
+      <div class="card-body">
+        <p class="script-line"><b>Duração:</b> ~1:15 · <b>Gancho (0:00-0:03):</b> a tote bag exclusiva ainda fechada/embrulhada, bem perto da câmera + voz: <i>"Esperei meses por isso — e vem autografado."</i></p>
+        <ul>
+          <li><b>0:03-0:20:</b> contexto rápido (retirada no evento, véspera do lançamento oficial)</li>
+          <li><b>0:20-0:45:</b> abre a tote bag, revela o livro, mostra a capa</li>
+          <li><b>0:45-1:05:</b> mostra o autógrafo da Alice Oseman de pertinho, reação genuína</li>
+          <li><b>1:05-1:15:</b> 1 frase sobre o que mais espera da história + fechamento</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary>5. O livro que Virginia Woolf escreveu por amor <span class="arrow">▶</span></summary>
+      <div class="card-body">
+        <p class="script-line"><b>Duração:</b> ~1:10 · <b>Gancho (0:00-0:03):</b> mostra a capa de <i>Orlando</i> bem perto da câmera + voz: <i>"Virginia Woolf escreveu esse livro como uma carta de amor — e ele é sobre fluidez de gênero."</i></p>
+        <ul>
+          <li><b>0:03-0:25:</b> conta que Woolf e Vita Sackville-West tiveram um relacionamento amoroso</li>
+          <li><b>0:25-0:55:</b> explica <i>Orlando</i> (1928) — personagem que muda de gênero ao longo de séculos — considerado um dos primeiros romances ingleses a tratar fluidez de gênero</li>
+          <li><b>0:55-1:10:</b> fechamento: "em 1928 — décadas antes do termo existir"</li>
+        </ul>
+      </div>
+    </details>
+
+    <div class="group-label">Reels — @irodcarvalho (influencer pessoal)</div>
+
+    <details class="card">
+      <summary>1. Kebab da Taylor Swift vs. Döner de Berlim <span class="arrow">▶</span></summary>
+      <div class="card-body">
+        <p class="script-line"><b>Duração:</b> ~1:20 · <b>Gancho (0:00-0:03):</b> os dois kebabs lado a lado, bem perto da câmera + voz: <i>"Paguei o mesmo kebab que a Taylor Swift pedia."</i></p>
+        <ul>
+          <li><b>0:03-0:20:</b> pedido no balcão do Kentish Delight, conta rápido a história (clipe de "End Game", o ex Joe Alwyn, o pedido de £450 antes do Eras Tour)</li>
+          <li><b>0:20-0:45:</b> primeira mordida, reação</li>
+          <li><b>0:45-1:05:</b> corte/flashback de um döner de Berlim (b-roll que já tem ou grava de novo lá)</li>
+          <li><b>1:05-1:20:</b> veredito final em 1 frase de efeito</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary>2. O prédio onde os Beatles tocaram por última vez <span class="arrow">▶</span></summary>
+      <div class="card-body">
+        <p class="script-line"><b>Duração:</b> ~1:15 · <b>Gancho (0:00-0:03):</b> você de frente pro número 3, câmera sobe rápido pro telhado + voz: <i>"Esse telhado vai virar museu e desaparecer do jeito que é hoje."</i></p>
+        <ul>
+          <li><b>0:03-0:30:</b> conta a história do show de 30/01/1969 e a polícia interrompendo por reclamação de vizinho</li>
+          <li><b>0:30-0:50:</b> menciona o anúncio recente do museu "The Beatles at 3 Savile Row" (maio/2026, abre 2027)</li>
+          <li><b>0:50-1:15:</b> fechamento: "fui lá antes de virar museu"</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary>3. POV: chegando no lançamento do Heartstopper <span class="arrow">▶</span></summary>
+      <div class="card-body">
+        <p class="script-line"><b>Duração:</b> ~1:10 · <b>Gancho (0:00-0:03):</b> sem narração — texto grande na tela sobre a imagem subindo a colina: <i>"não dormi pensando nisso"</i> + som ambiente puro.</p>
+        <ul>
+          <li><b>0:03-0:40:</b> POV subindo a colina do Ally Pally, som ambiente</li>
+          <li><b>0:40-1:00:</b> entrando na fila, reações de outras pessoas ao redor</li>
+          <li><b>1:00-1:10:</b> primeira visão do teatro por dentro, corte final</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary>4. 3 lugares queer em Londres que o guia de turismo não conta <span class="arrow">▶</span></summary>
+      <div class="card-body">
+        <p class="script-line"><b>Duração:</b> ~1:10 · <b>Gancho (0:00-0:03):</b> já dentro de um dos lugares, corte seco + voz: <i>"3 lugares em Londres que nenhum guia de turismo te conta."</i></p>
+        <ul>
+          <li><b>0:03-0:25:</b> Gay's The Word + frase curta de identidade ("aqui é onde...")</li>
+          <li><b>0:25-0:50:</b> The Common Press + frase de identidade</li>
+          <li><b>0:50-1:10:</b> terceiro lugar (se visitar mais algum) ou reflexão final fechando os três</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary>5. 48h em Londres: recap geral <span class="arrow">▶</span></summary>
+      <div class="card-body">
+        <p class="script-line"><b>Duração:</b> ~1:25 · <b>Gancho (0:00-0:03):</b> 3 cortes rápidos (0.5s cada) dos melhores momentos + voz/texto: <i>"48 horas, 1 mochila pequena e um lançamento de livro."</i></p>
+        <ul>
+          <li><b>0:03-1:00:</b> montagem dos melhores momentos dos dois dias, no ritmo de uma música</li>
+          <li><b>1:00-1:25:</b> fechamento com texto na tela resumindo a viagem + pergunta pro comentário ("qual parte você queria ver mais?")</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary>6. A estátua que todo fã de Sherlock visita <span class="arrow">▶</span></summary>
+      <div class="card-body">
+        <p class="script-line"><b>Duração:</b> ~1:05 · <b>Gancho (0:00-0:03):</b> close na estátua de bronze + voz: <i>"Esse detetive nunca existiu — e mesmo assim tem estátua, museu e endereço oficial."</i></p>
+        <ul>
+          <li><b>0:03-0:30:</b> revela: é a estátua do Sherlock Holmes, na saída da estação Baker Street</li>
+          <li><b>0:30-0:55:</b> caminha até a porta do 221B, mostra o "policial" vitoriano de plantão</li>
+          <li><b>0:55-1:05:</b> fechamento — menciona que o museu por dentro é pago, mas isso aqui é de graça</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary>7. A piada matemática escondida num nome de estação <span class="arrow">▶</span></summary>
+      <div class="card-body">
+        <p class="script-line"><b>Duração:</b> ~1:15 · <b>Gancho (0:00-0:03):</b> mostra a tatuagem do 42 de pertinho + voz: <i>"Essa tatuagem só faz sentido se você conhece essa estação de trem."</i></p>
+        <ul>
+          <li><b>0:03-0:30:</b> revela a placa "Fenchurch Street" + explica rapidamente o que é o 42 (a resposta pra vida, o universo e tudo mais, do livro de Douglas Adams)</li>
+          <li><b>0:30-1:00:</b> conta que Douglas Adams batizou uma personagem de "Fenchurch" porque achou que o nome da estação parecia nome de garota</li>
+          <li><b>1:00-1:15:</b> fechamento mostrando a tatuagem ao lado da placa</li>
+        </ul>
+      </div>
+    </details>
+
+  </section>
+
+  <!-- ===================== ESCOLA ===================== -->
+  <section class="panel" id="escola">
+    <h2 class="section-title"><span class="day-no">Conteúdo da escola</span>Reels de inglês</h2>
+
+    <p style="font-size:13px;color:var(--paper-soft);opacity:.85;margin-top:-6px;">
+      Decidimos não gravar videoaula em Londres — toma tempo demais do roteiro. Só os reels abaixo, que são rápidos e cabem entre uma parada e outra.
+    </p>
+
+    <div class="day-summary" style="margin:6px 0 22px;">
+      <b style="font-family:var(--font-display);font-size:14px;color:var(--brass-soft);">🎯 Regra de ouro dos reels (igual nas outras abas)</b>
+      <div style="margin-top:8px;font-family:var(--font-body);">Sempre acima de 1:01. O gancho dos 3 primeiros segundos é em inglês mesmo (já é a aula) — comece pela frase de impacto, não pela introdução. Formato: erro comum + correção, ou pergunta retórica que cria curiosidade.</div>
+    </div>
+
+    <div class="group-label">Reels de inglês (você em pé, sem efeito — roteiro básico)</div>
+
+    <details class="card">
+      <summary>1. Present Perfect rápido: "I've just..." <span class="arrow">▶</span></summary>
+      <div class="card-body">
+        <p><b>Lição:</b> B1 — 139/141/145 (Present Perfect + just/already)</p>
+        <p class="script-line"><b>Duração:</b> ~1:05 · <b>Gancho (0:00-0:03):</b> <span class="en">"Most people get this tense wrong in their very first English lesson."</span></p>
+        <ul>
+          <li><b>0:03-0:30:</b> <span class="en">"I've just landed in London, and I've already found a bookshop."</span></li>
+          <li><b>0:30-0:50:</b> explica rápido: present perfect = ação ligada ao presente, não ao passado distante.</li>
+          <li><b>0:50-1:05:</b> mais um exemplo + fechamento ("now you try it in the comments").</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary>2. Big Ben vs. Elizabeth Tower <span class="arrow">▶</span></summary>
+      <div class="card-body">
+        <p class="script-line"><b>Duração:</b> ~1:05 · <b>Gancho (0:00-0:03):</b> <span class="en">"You've been saying this wrong your whole life."</span></p>
+        <ul>
+          <li><b>0:03-0:25:</b> <span class="en">"'Big Ben' is actually just the name of the bell — the tower is called the Elizabeth Tower."</span></li>
+          <li><b>0:25-0:50:</b> conta quando/por que foi renomeada (2012, Jubileu de Diamante).</li>
+          <li><b>0:50-1:05:</b> fechamento com pergunta: "Did you know this?"</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary>3. Pedindo comida — "takeaway" <span class="arrow">▶</span></summary>
+      <div class="card-body">
+        <p class="script-line"><b>Duração:</b> ~1:10 · <b>Gancho (0:00-0:03):</b> <span class="en">"Say this wrong in a UK shop, and they'll instantly know you're not from here."</span></p>
+        <ul>
+          <li><b>0:03-0:30:</b> <span class="en">"In the UK, you don't say 'to-go' — you say 'takeaway'."</span></li>
+          <li><b>0:30-0:55:</b> exemplo prático: <span class="en">"Can I get this one as a takeaway, please?"</span> — grava na fila do Kentish Delight.</li>
+          <li><b>0:55-1:10:</b> mais uma variação ("for here or to take away?") + fechamento.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary>4. "Queue" não é "line" <span class="arrow">▶</span></summary>
+      <div class="card-body">
+        <p class="script-line"><b>Duração:</b> ~1:05 · <b>Gancho (0:00-0:03):</b> <span class="en">"This one word instantly gives away if you're American or British."</span></p>
+        <ul>
+          <li><b>0:03-0:30:</b> <span class="en">"Americans say 'line', but in British English we say 'queue'."</span> — grava na fila do evento Heartstopper.</li>
+          <li><b>0:30-0:50:</b> mostra a fila de verdade ao redor, reforça o uso.</li>
+          <li><b>0:50-1:05:</b> fechamento: <span class="en">"And yes, you'll do a lot of queueing in London."</span></li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary>5. Comparativo rápido: kebab vs. döner <span class="arrow">▶</span></summary>
+      <div class="card-body">
+        <p><b>Lição:</b> A2 — 10 (Comparatives)</p>
+        <p class="script-line"><b>Duração:</b> ~1:15 · <b>Gancho (0:00-0:03):</b> segura os dois kebabs perto da câmera + <span class="en">"One of these is clearly better. Let's prove it in English."</span></p>
+        <ul>
+          <li><b>0:03-0:35:</b> <span class="en">"This kebab is spicier than the one I had in Berlin."</span></li>
+          <li><b>0:35-0:55:</b> morde, reage, mais uma frase comparativa.</li>
+          <li><b>0:55-1:15:</b> veredito final: <span class="en">"But is it the best? Let's see..."</span> + fechamento.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary>6. "Fancy" como verbo <span class="arrow">▶</span></summary>
+      <div class="card-body">
+        <p class="script-line"><b>Duração:</b> ~1:05 · <b>Gancho (0:00-0:03):</b> <span class="en">"This word doesn't mean what you think it means."</span></p>
+        <ul>
+          <li><b>0:03-0:30:</b> <span class="en">"'Fancy' isn't just an adjective — Brits use it as a verb too."</span></li>
+          <li><b>0:30-0:50:</b> exemplo: <span class="en">"Do you fancy a coffee?"</span> means <span class="en">"Do you want a coffee?"</span> — grava na porta de um café.</li>
+          <li><b>0:50-1:05:</b> fechamento com mais um exemplo do dia a dia.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary>7. "Mind the gap" — phrasal verb escondido <span class="arrow">▶</span></summary>
+      <div class="card-body">
+        <p class="script-line"><b>Duração:</b> ~1:10 · <b>Gancho (0:00-0:03):</b> <span class="en">"You'll hear this phrase 50 times a day in London, and most tourists have no idea what it means."</span></p>
+        <ul>
+          <li><b>0:03-0:35:</b> <span class="en">"'Mind' here means 'pay attention to' — so 'mind the gap' means 'watch out for the gap'."</span> — grava na plataforma.</li>
+          <li><b>0:35-0:55:</b> mais um exemplo com "mind": <span class="en">"Mind your step."</span></li>
+          <li><b>0:55-1:10:</b> fechamento.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary>8. Could have / Must have rápido — Beatles <span class="arrow">▶</span></summary>
+      <div class="card-body">
+        <p><b>Lição:</b> B2 — 163/167</p>
+        <p class="script-line"><b>Duração:</b> ~1:10 · <b>Gancho (0:00-0:03):</b> <span class="en">"The police literally stopped The Beatles' last concert — right here."</span></p>
+        <ul>
+          <li><b>0:03-0:35:</b> conta o show de 1969 em frente ao 3 Savile Row.</li>
+          <li><b>0:35-0:55:</b> <span class="en">"The neighbours must have been furious. They could have played longer if the police hadn't shown up."</span></li>
+          <li><b>0:55-1:10:</b> fechamento com a curiosidade do museu novo (2027).</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary>9. Would / Have to / Must rápido <span class="arrow">▶</span></summary>
+      <div class="card-body">
+        <p><b>Lição:</b> A2 — 9</p>
+        <p class="script-line"><b>Duração:</b> ~1:05 · <b>Gancho (0:00-0:03):</b> <span class="en">"This phrase makes you sound instantly more polite in English."</span></p>
+        <ul>
+          <li><b>0:03-0:30:</b> <span class="en">"Instead of 'I want a coffee', try: 'I'd like a coffee, please'."</span></li>
+          <li><b>0:30-0:50:</b> distingue have to/must rapidamente com exemplo de viagem.</li>
+          <li><b>0:50-1:05:</b> fechamento.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary>10. Pedidos educados — "Could I..." <span class="arrow">▶</span></summary>
+      <div class="card-body">
+        <p class="script-line"><b>Duração:</b> ~1:05 · <b>Gancho (0:00-0:03):</b> <span class="en">"This one phrase makes you sound instantly more polite in English."</span></p>
+        <ul>
+          <li><b>0:03-0:30:</b> <span class="en">"Instead of 'I want a coffee', try: 'Could I get a coffee, please?'"</span></li>
+          <li><b>0:30-0:50:</b> mais um exemplo no mesmo formato.</li>
+          <li><b>0:50-1:05:</b> fechamento: <span class="en">"Much more polite, and very British."</span></li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary>11. Gírias britânicas básicas <span class="arrow">▶</span></summary>
+      <div class="card-body">
+        <p class="script-line"><b>Duração:</b> ~1:10 · <b>Gancho (0:00-0:03):</b> <span class="en">"Three words that'll make you sound British in under a minute."</span></p>
+        <ul>
+          <li><b>0:03-0:50:</b> <span class="en">"Cheers" = thanks · "Lovely" = great/nice · "Brilliant" = awesome.</span> Um exemplo de uso pra cada.</li>
+          <li><b>0:50-1:10:</b> fechamento pedindo pro aluno comentar outra gíria que já ouviu.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary>12. Lift vs. elevator / flat vs. apartment <span class="arrow">▶</span></summary>
+      <div class="card-body">
+        <p class="script-line"><b>Duração:</b> ~1:15 · <b>Gancho (0:00-0:03):</b> <span class="en">"British and American English are basically two different languages — here's proof."</span></p>
+        <ul>
+          <li><b>0:03-0:50:</b> <span class="en">"British English: lift, flat, queue, holiday. American English: elevator, apartment, line, vacation."</span> — formato lista, texto na tela.</li>
+          <li><b>0:50-1:15:</b> fechamento pedindo pro aluno comentar mais um par BR/AmE.</li>
+        </ul>
+      </div>
+    </details>
+
+  </section>
+
+</main>
+
+<footer>
+  Feito pra Rod estudar antes de falar na câmera · Londres, 01–02 jul 2026
+</footer>
+
+<script>
+  const buttons = document.querySelectorAll('.tab-btn');
+  const panels = document.querySelectorAll('.panel');
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.tab).classList.add('active');
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    });
+  });
+</script>
+
+<style>
+  #pwa-banner{
+    display:none;
+    position:fixed;
+    bottom:0;left:0;right:0;
+    z-index:200;
+    background:var(--bg-soft);
+    border-top:1px solid var(--line);
+    padding:12px 16px 16px;
+    gap:10px;
+    align-items:center;
+    flex-wrap:wrap;
+    backdrop-filter:blur(10px);
+    box-shadow:0 -4px 20px rgba(0,0,0,.4);
+  }
+  #pwa-banner.visible{display:flex;}
+  #pwa-banner .pwa-text{
+    flex:1;
+    font-family:var(--font-mono);
+    font-size:12.5px;
+    color:var(--paper-soft);
+    min-width:180px;
+  }
+  #pwa-banner .pwa-text b{color:var(--paper);display:block;margin-bottom:2px;}
+  #pwa-btn-install{
+    font-family:var(--font-mono);
+    font-size:12.5px;
+    font-weight:700;
+    background:var(--brass-soft);
+    color:var(--ink);
+    border:none;
+    border-radius:8px;
+    padding:10px 18px;
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  #pwa-btn-dismiss{
+    font-family:var(--font-mono);
+    font-size:11px;
+    background:none;
+    border:1px solid var(--line);
+    color:var(--paper-soft);
+    border-radius:8px;
+    padding:10px 14px;
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  /* iOS instructions modal */
+  #ios-modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:300;
+    background:rgba(0,0,0,.75);
+    align-items:flex-end;
+    justify-content:center;
+    padding-bottom:20px;
+  }
+  #ios-modal.visible{display:flex;}
+  #ios-modal .ios-box{
+    background:var(--bg-soft);
+    border:1px solid var(--line);
+    border-radius:16px 16px 12px 12px;
+    padding:20px 20px 28px;
+    max-width:380px;
+    width:100%;
+    font-family:var(--font-body);
+    color:var(--paper);
+    font-size:14px;
+    line-height:1.55;
+    position:relative;
+  }
+  #ios-modal h3{
+    font-family:var(--font-display);
+    font-size:18px;
+    margin:0 0 12px;
+  }
+  #ios-modal ol{margin:0 0 16px;padding-left:20px;}
+  #ios-modal li{margin-bottom:6px;}
+  #ios-modal .close-ios{
+    position:absolute;
+    top:14px;right:14px;
+    background:none;
+    border:none;
+    color:var(--paper-soft);
+    font-size:20px;
+    cursor:pointer;
+    line-height:1;
+    padding:4px;
+  }
+</style>
+
+<!-- PWA Install Banner -->
+<div id="pwa-banner">
+  <div class="pwa-text">
+    <b>📱 Adicionar à tela inicial</b>
+    Abre como um app, sem navegador.
+  </div>
+  <button id="pwa-btn-install" onclick="installPWA()">Instalar</button>
+  <button id="pwa-btn-dismiss" onclick="dismissBanner()">Agora não</button>
+</div>
+
+<!-- Install Instructions Modal (Android + iOS) -->
+<div id="ios-modal">
+  <div class="ios-box">
+    <button class="close-ios" onclick="document.getElementById('ios-modal').classList.remove('visible')">✕</button>
+    <h3 id="modal-title">Adicionar à tela inicial</h3>
+    <ol id="modal-steps"></ol>
+    <p style="font-size:12.5px;color:var(--paper-soft);margin:0;">O app abre em tela cheia sem a barra do navegador.</p>
+  </div>
+</div>
+
+<script>
+  let deferredPrompt = null;
+  const banner = document.getElementById('pwa-banner');
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
+  const isInStandalone = window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches;
+
+  // Populate modal with the right instructions for this OS
+  const steps = document.getElementById('modal-steps');
+  if (isIOS) {
+    steps.innerHTML = `
+      <li>Toque no botão <b>Compartilhar</b> (ícone ↑) na barra de baixo do Safari</li>
+      <li>Role o menu e toque em <b>"Adicionar à tela de início"</b></li>
+      <li>Confirme com <b>"Adicionar"</b> no canto superior direito</li>`;
+  } else {
+    steps.innerHTML = `
+      <li>Toque nos <b>três pontos ⋮</b> no canto superior direito do Chrome</li>
+      <li>Toque em <b>"Adicionar à tela inicial"</b></li>
+      <li>Confirme com <b>"Adicionar"</b></li>`;
+  }
+
+  // Capture native prompt if Chrome offers it (requires HTTPS)
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+  });
+
+  // Always show banner unless already installed or dismissed
+  if (!isInStandalone && !sessionStorage.getItem('pwa-dismissed')) {
+    setTimeout(() => banner.classList.add('visible'), 800);
+  }
+
+  function installPWA() {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then(() => {
+        deferredPrompt = null;
+        banner.classList.remove('visible');
+      });
+    } else {
+      banner.classList.remove('visible');
+      document.getElementById('ios-modal').classList.add('visible');
+    }
+  }
+
+  function dismissBanner() {
+    banner.classList.remove('visible');
+    sessionStorage.setItem('pwa-dismissed', '1');
+  }
+
+  if ('serviceWorker' in navigator) {
+    const sw = `
+      const CACHE='londres-v1';
+      self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.add('/')));self.skipWaiting();});
+      self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)));});
+    `;
+    const blob = new Blob([sw], { type: 'application/javascript' });
+    navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(() => {});
+  }
+</script>
+</body>
+</html>
