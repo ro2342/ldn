@@ -6,330 +6,478 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Londres 🇬🇧">
-<meta name="theme-color" content="#0d1812">
+<meta name="apple-mobile-web-app-title" content="Londres">
+<meta name="theme-color" content="#030011">
 <link rel="manifest" href="./manifest.json">
 <title>Londres · 01–02 Jul 2026</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:wght@300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg-deep:#0d1812;
-  --bg:#15261d;
-  --bg-soft:#1c3127;
-  --paper:#f6efdc;
-  --paper-soft:#efe6cd;
-  --ink:#201c14;
-  --muted:#6e6552;
-  --brass:#b08a3d;
-  --brass-soft:#cdab66;
-  --stamp:#8c3030;
-  --teal:#2c6b61;
-  --line:rgba(176,138,61,0.3);
-  --nav-h:64px;
-  --hdr-h:56px;
-  --safe-top:env(safe-area-inset-top,0px);
-  --safe-bot:env(safe-area-inset-bottom,0px);
-  --ff-d:'Fraunces',serif;
-  --ff-m:'Space Mono',monospace;
-  --ff-b:'Inter',system-ui,sans-serif;
+  --cyan:   #00E5FF;
+  --violet: #A855F7;
+  --green:  #06D6A0;
+  --indigo: #6C5CE7;
+  --red:    #FF3860;
+  --orange: #FF8C42;
+  --yellow: #FFD166;
+  --void:   #030011;
+  --deep:   #0A0020;
+  --surf:   #12003A;
+  --elev:   #1C0050;
+  --white:  #F0EEFF;
+  --dim:    #B8A5D4;
+  --muted:  #6B5A8A;
+  --glass:  rgba(18,0,58,0.72);
+  --gbord:  rgba(180,140,255,0.18);
+  --grad:   linear-gradient(90deg,#FF3860,#FF8C42,#FFD166,#06D6A0,#00E5FF,#6C5CE7,#A855F7);
+  --fd: 'Fredoka', sans-serif;
+  --fb: 'Nunito', sans-serif;
+  --fa: 'Orbitron', monospace;
+  --nav-h: 66px;
+  --hdr-h: 56px;
+  --safe-top: env(safe-area-inset-top,0px);
+  --safe-bot: env(safe-area-inset-bottom,0px);
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-html,body{margin:0;padding:0;height:100%;overflow:hidden;background:var(--bg-deep);color:var(--paper);font-family:var(--ff-b);-webkit-font-smoothing:antialiased;}
+html,body{margin:0;padding:0;height:100%;overflow:hidden;background:var(--void);color:var(--dim);font-family:var(--fb);-webkit-font-smoothing:antialiased;}
+a{color:var(--cyan);text-decoration:none;}
 
-/* ── APP SHELL ── */
-.app-header{
+/* ── SHELL ── */
+.hdr{
   position:fixed;top:0;left:0;right:0;
   height:calc(var(--hdr-h) + var(--safe-top));
   padding-top:var(--safe-top);
-  background:var(--bg-deep);
-  border-bottom:1px solid var(--line);
-  display:flex;align-items:center;justify-content:space-between;
-  padding-left:16px;padding-right:16px;
-  z-index:100;
+  background:rgba(3,0,17,0.96);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  display:flex;align-items:center;padding-inline:16px;
+  z-index:100;gap:0;
 }
-.app-header-title{font-family:var(--ff-d);font-size:20px;font-weight:700;color:var(--paper);}
-.app-header-sub{font-family:var(--ff-m);font-size:10px;color:var(--brass-soft);letter-spacing:.1em;}
-.app-header-flag{font-size:24px;line-height:1;}
+.hdr::after{
+  content:"";position:absolute;bottom:0;left:0;right:0;height:1.5px;
+  background:var(--grad);
+}
+.hdr-loc{display:flex;align-items:center;gap:5px;}
+.hdr-loc svg{width:14px;height:14px;flex-shrink:0;}
+.hdr-city{font-family:var(--fa);font-size:11px;font-weight:600;letter-spacing:.12em;color:var(--cyan);}
+.hdr-center{
+  flex:1;text-align:center;
+  font-family:var(--fa);font-size:9.5px;letter-spacing:.1em;
+  color:var(--muted);text-transform:uppercase;
+}
+.hdr-right{display:flex;align-items:center;gap:6px;}
+.hdr-dates{font-family:var(--fa);font-size:9px;color:var(--muted);letter-spacing:.05em;}
+.hdr-flag{font-size:16px;}
 
-.panels-wrap{
+.wrap{
   position:fixed;
   top:calc(var(--hdr-h) + var(--safe-top));
-  left:0;right:0;
   bottom:calc(var(--nav-h) + var(--safe-bot));
-  overflow-y:auto;
-  overflow-x:hidden;
+  left:0;right:0;
+  overflow-y:auto;overflow-x:hidden;
   -webkit-overflow-scrolling:touch;
   overscroll-behavior-y:contain;
 }
-
-.panel{display:none;padding:16px 14px 32px;min-height:100%;}
-.panel.active{display:block;animation:fadeIn .18s ease;}
-@keyframes fadeIn{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:none;}}
+.panel{display:none;padding:16px 14px 40px;}
+.panel.active{display:block;animation:pin .18s ease;}
+@keyframes pin{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
 @media(prefers-reduced-motion:reduce){.panel.active{animation:none;}}
 
-/* ── BOTTOM NAV ── */
-.bottom-nav{
+/* ── BOTTOM NAV (Material Design 3) ── */
+.bnav{
   position:fixed;bottom:0;left:0;right:0;
   height:calc(var(--nav-h) + var(--safe-bot));
   padding-bottom:var(--safe-bot);
-  background:var(--bg-deep);
-  border-top:1px solid var(--line);
-  display:flex;align-items:stretch;
-  z-index:100;
+  background:rgba(10,0,32,0.97);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border-top:1px solid var(--gbord);
+  display:flex;align-items:center;z-index:100;padding-top:2px;
 }
-.nav-btn{
-  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:3px;background:none;border:none;cursor:pointer;
-  padding:8px 4px;color:var(--muted);
-  transition:color .15s;
+.nb{
+  flex:1;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:2px;background:none;border:none;
+  cursor:pointer;padding:4px 2px;color:var(--muted);
+  font-family:var(--fb);position:relative;
+  transition:color .2s;
 }
-.nav-btn.active{color:var(--brass-soft);}
-.nav-icon{font-size:20px;line-height:1;}
-.nav-label{font-family:var(--ff-m);font-size:9px;letter-spacing:.06em;text-transform:uppercase;}
-.nav-dot{
-  width:4px;height:4px;border-radius:50%;background:var(--brass-soft);
-  margin-top:2px;opacity:0;transition:opacity .15s;
+.nb-pill{
+  position:absolute;top:2px;
+  width:0;height:30px;border-radius:15px;
+  transition:width .28s cubic-bezier(.2,.8,.3,1),background .2s;
+  pointer-events:none;
 }
-.nav-btn.active .nav-dot{opacity:1;}
+.nb.active .nb-pill{width:58px;}
+[data-tab="dia1"].nb.active   .nb-pill{background:rgba(0,229,255,.16);}
+[data-tab="dia2"].nb.active   .nb-pill{background:rgba(168,85,247,.16);}
+[data-tab="conteudo"].nb.active .nb-pill{background:rgba(6,214,160,.16);}
+[data-tab="escola"].nb.active  .nb-pill{background:rgba(108,92,231,.16);}
+.nb-icon{position:relative;z-index:1;line-height:0;transition:transform .2s;}
+.nb-icon svg{width:23px;height:23px;display:block;}
+.nb.active .nb-icon{transform:translateY(-1px);}
+.nb-label{font-size:10px;font-weight:700;position:relative;z-index:1;letter-spacing:.02em;}
+[data-tab="dia1"].nb.active   {color:var(--cyan);}
+[data-tab="dia2"].nb.active   {color:var(--violet);}
+[data-tab="conteudo"].nb.active{color:var(--green);}
+[data-tab="escola"].nb.active {color:var(--indigo);}
 
-/* ── SWIPE HINT ── */
-.swipe-hint{
-  font-family:var(--ff-m);font-size:10px;color:var(--muted);
-  text-align:center;padding:8px 0 0;opacity:.6;
+/* ── SECTION TITLES ── */
+.sect-title{margin:0 0 16px;}
+.sect-title .eyebrow{
+  font-family:var(--fa);font-size:9px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--muted);display:block;margin-bottom:4px;
 }
+.sect-title h2{
+  font-family:var(--fd);font-size:26px;font-weight:600;
+  color:var(--white);margin:0;line-height:1.2;
+}
+#dia1 .sect-title h2{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+#dia2 .sect-title h2{background:linear-gradient(90deg,var(--violet),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+#conteudo .sect-title h2{background:linear-gradient(90deg,var(--green),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+#escola .sect-title h2{background:linear-gradient(90deg,var(--indigo),var(--violet));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 
-/* ── SECTION TITLE ── */
-.section-title{
-  font-family:var(--ff-d);font-size:22px;font-weight:700;
-  margin:0 0 14px;color:var(--paper);line-height:1.2;
-}
-.section-title .kicker{
-  font-family:var(--ff-m);font-size:10px;color:var(--brass-soft);
-  display:block;letter-spacing:.15em;margin-bottom:4px;
-}
-
-/* ── FLIGHT TICKETS ── */
-.tickets{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+/* ── TICKETS ── */
+.tickets{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
 .ticket{
-  flex:1 1 140px;background:var(--paper);color:var(--ink);
-  border-radius:10px;padding:10px 12px;border:1px solid #d9caa0;
-  font-family:var(--ff-m);font-size:11px;position:relative;
+  flex:1 1 140px;
+  background:var(--surf);border:1px solid var(--gbord);
+  border-radius:12px;padding:10px 14px;position:relative;overflow:hidden;
 }
-.ticket::before,.ticket::after{
-  content:"";position:absolute;top:50%;
-  width:12px;height:12px;border-radius:50%;
-  background:var(--bg-deep);transform:translateY(-50%);
+.ticket::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--grad);
 }
-.ticket::before{left:-6px;}.ticket::after{right:-6px;}
-.ticket-route{font-family:var(--ff-d);font-size:16px;font-weight:700;color:var(--stamp);}
-.ticket-meta{color:var(--muted);margin-top:2px;}
-.ticket-meta b{color:var(--ink);}
+.tick-route{font-family:var(--fd);font-size:18px;color:var(--white);font-weight:500;}
+.tick-meta{font-family:var(--fa);font-size:10px;color:var(--muted);margin-top:3px;}
+.tick-meta b{color:var(--dim);}
 
 /* ── DAY SUMMARY ── */
-.day-summary{
-  background:var(--bg-soft);border:1px solid var(--line);
-  border-radius:10px;padding:12px 14px;margin-bottom:20px;
-  font-family:var(--ff-m);font-size:12px;
+.day-sum{
+  background:var(--glass);border:1px solid var(--gbord);
+  border-radius:14px;padding:12px 14px;margin-bottom:16px;
+  position:relative;overflow:hidden;
 }
-.day-summary-row{display:flex;gap:8px;padding:3px 0;}
-.ds-time{color:var(--brass-soft);min-width:42px;flex-shrink:0;}
-.ds-flag{color:var(--stamp);font-weight:700;}
+.day-sum::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:2px;
+}
+#dia1 .day-sum::before{background:var(--cyan);}
+#dia2 .day-sum::before{background:var(--violet);}
+.ds-row{display:flex;gap:8px;padding:3px 0;font-size:13px;}
+.ds-t{font-family:var(--fa);font-size:10px;color:var(--muted);min-width:44px;flex-shrink:0;padding-top:1px;}
+.ds-v{color:var(--dim);line-height:1.4;}
+.ds-flag{color:var(--white);font-weight:700;}
 
 /* ── ROUTE CTA ── */
-.route-cta{
-  display:block;text-align:center;text-decoration:none;
-  font-family:var(--ff-m);font-size:12px;font-weight:700;
-  color:var(--ink);background:var(--brass-soft);
-  border-radius:10px;padding:12px 16px;margin-bottom:18px;
-  border:1px solid var(--brass);
+.route-btn{
+  display:block;text-align:center;padding:12px 16px;
+  border-radius:12px;font-family:var(--fa);font-size:10px;
+  letter-spacing:.08em;font-weight:600;margin-bottom:20px;
+  transition:opacity .15s, transform .1s;
 }
+.route-btn:active{transform:scale(.98);opacity:.85;}
+#dia1   .route-btn{background:var(--cyan);color:var(--void);}
+#dia2   .route-btn{background:var(--violet);color:var(--void);}
+#conteudo .route-btn{background:var(--green);color:var(--void);}
 
 /* ── TIMELINE ── */
-.timeline{padding-left:14px;border-left:2px dashed var(--line);}
+.timeline{padding-left:14px;border-left:2px solid;}
+#dia1 .timeline{border-color:rgba(0,229,255,.22);}
+#dia2 .timeline{border-color:rgba(168,85,247,.22);}
+
 .stop{
-  position:relative;background:var(--paper);color:var(--ink);
-  border-radius:12px;padding:14px 14px 12px;margin:0 0 16px 12px;
-  box-shadow:0 6px 18px rgba(0,0,0,.25);
+  position:relative;
+  background:var(--glass);border:1px solid var(--gbord);
+  border-radius:16px;padding:14px 14px 12px;
+  margin:0 0 14px 14px;
 }
 .stop::before{
-  content:"";position:absolute;left:-28px;top:18px;
-  width:10px;height:10px;border-radius:50%;
-  background:var(--brass);border:2px solid var(--bg-deep);
+  content:"";position:absolute;
+  left:-28px;top:18px;
+  width:11px;height:11px;border-radius:50%;
 }
-.stop.optional{border:2px dashed var(--brass-soft);background:var(--paper-soft);}
-.stop.highlight{border:2px solid var(--stamp);}
-.stop-time{font-family:var(--ff-m);font-size:11px;color:var(--stamp);font-weight:700;}
-.stop h3{font-family:var(--ff-d);font-size:18px;margin:2px 0 4px;font-weight:600;}
-.stop .addr{font-family:var(--ff-m);font-size:11px;color:var(--muted);margin-bottom:8px;line-height:1.4;}
-.tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px;}
+#dia1 .stop::before{background:var(--cyan);box-shadow:0 0 8px var(--cyan);}
+#dia2 .stop::before{background:var(--violet);box-shadow:0 0 8px var(--violet);}
+.stop.stop-hero{border-color:rgba(255,255,255,.2);}
+#dia1 .stop.stop-hero::before{box-shadow:0 0 14px var(--cyan),0 0 30px rgba(0,229,255,.3);}
+#dia2 .stop.stop-hero::before{box-shadow:0 0 14px var(--violet),0 0 30px rgba(168,85,247,.3);}
+.stop.stop-opt{border-style:dashed;border-color:var(--muted);opacity:.85;}
+.stop-time{font-family:var(--fa);font-size:10px;letter-spacing:.05em;margin-bottom:3px;}
+#dia1 .stop-time{color:var(--cyan);}
+#dia2 .stop-time{color:var(--violet);}
+.stop h3{font-family:var(--fd);font-size:20px;font-weight:500;color:var(--white);margin:0 0 3px;}
+.stop .addr{font-size:11.5px;color:var(--muted);margin-bottom:8px;line-height:1.5;}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px;}
 .tag{
-  font-family:var(--ff-m);font-size:10px;padding:2px 7px;
-  border-radius:20px;border:1px solid var(--brass);
-  background:rgba(176,138,61,0.12);color:var(--ink);white-space:nowrap;
+  font-size:10px;font-weight:700;font-family:var(--fb);
+  padding:2px 9px;border-radius:999px;
 }
-.stop p{margin:0 0 8px;font-size:14px;line-height:1.55;}
-.stop p:last-child{margin-bottom:0;}
+.tag{background:rgba(180,140,255,.12);color:var(--dim);border:1px solid var(--gbord);}
+.stop p{font-size:14px;line-height:1.6;color:var(--dim);margin:0 0 8px;}
+.stop p:last-child{margin:0;}
+.stop p b{color:var(--white);}
 .tip{
-  font-size:13px;background:rgba(44,107,97,0.1);
-  border-left:3px solid var(--teal);padding:6px 10px;
-  color:#1e3d38;margin-top:8px;border-radius:0 4px 4px 0;
+  font-size:12.5px;border-left:3px solid var(--green);
+  padding:7px 10px;color:var(--dim);margin-top:8px;
+  background:rgba(6,214,160,.07);border-radius:0 8px 8px 0;
 }
 .badge-opt{
-  font-family:var(--ff-m);font-size:10px;color:var(--stamp);
-  border:1px dashed var(--stamp);padding:1px 7px;border-radius:5px;
-  float:right;margin-left:8px;
+  font-family:var(--fa);font-size:9px;color:var(--muted);
+  border:1px solid var(--muted);padding:2px 8px;border-radius:6px;
+  float:right;letter-spacing:.06em;margin-left:8px;
 }
-
-/* ── MAPS ── */
-.map-wrap{width:100%;height:120px;border-radius:8px;overflow:hidden;margin:8px 0;border:1px solid #d9caa0;}
+.map-wrap{width:100%;height:120px;border-radius:10px;overflow:hidden;margin:8px 0;border:1px solid var(--gbord);}
 .map-wrap iframe{width:100%;height:100%;border:0;display:block;}
 .map-link{
-  display:inline-block;font-family:var(--ff-m);font-size:11px;
-  color:var(--ink);background:rgba(176,138,61,0.18);
-  border:1px solid var(--brass);border-radius:20px;
-  padding:3px 10px;text-decoration:none;margin-bottom:8px;
+  display:inline-block;font-family:var(--fa);font-size:9px;
+  letter-spacing:.06em;padding:4px 12px;border-radius:999px;
+  margin-bottom:8px;border:1px solid var(--gbord);color:var(--cyan);
 }
+.fora-box{
+  background:var(--surf);border:1px solid var(--gbord);
+  border-radius:12px;padding:12px 14px;margin-top:18px;
+  font-size:13px;color:var(--dim);
+}
+.fora-box b{font-family:var(--fd);font-size:15px;color:var(--muted);display:block;margin-bottom:4px;}
 
-/* ── FICOU DE FORA ── */
-.forabox{
-  background:var(--bg-soft);border:1px solid var(--line);
-  border-radius:10px;padding:12px 14px;margin-top:20px;
-  font-size:13px;
+/* ── CONTENT TAB ── */
+.group-lbl{
+  font-family:var(--fa);font-size:9px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--muted);margin:22px 0 10px;
 }
-.forabox b{font-family:var(--ff-d);font-size:14px;color:var(--brass-soft);display:block;margin-bottom:6px;}
+.info-bar{
+  background:rgba(6,214,160,.08);border:1px solid rgba(6,214,160,.2);
+  border-radius:12px;padding:12px 14px;margin-bottom:14px;
+  font-size:13px;color:var(--dim);line-height:1.6;
+}
+.info-bar b{color:var(--green);}
 
-/* ── CONTENT TAB (vlogs/reels) ── */
-.group-label{
-  font-family:var(--ff-m);font-size:10px;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--brass-soft);margin:22px 0 10px;
+details.acc{
+  background:var(--glass);border:1px solid var(--gbord);
+  border-radius:14px;margin-bottom:10px;overflow:hidden;
 }
-.info-box{
-  background:var(--bg-soft);border:1px dashed var(--line);
-  border-radius:10px;padding:12px 14px;margin-bottom:14px;font-size:13px;
-}
-.info-box b{color:var(--brass-soft);}
-details.card{
-  background:var(--paper);color:var(--ink);border-radius:10px;
-  margin-bottom:10px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,.2);
-}
-details.card summary{
-  list-style:none;cursor:pointer;padding:13px 14px;
-  font-family:var(--ff-d);font-weight:600;font-size:15px;
+details.acc summary{
+  list-style:none;cursor:pointer;
+  padding:14px 14px;
+  font-family:var(--fd);font-weight:500;font-size:16px;color:var(--white);
   display:flex;align-items:center;justify-content:space-between;gap:8px;
 }
-details.card summary::-webkit-details-marker{display:none;}
-details.card summary .arr{font-family:var(--ff-m);color:var(--brass);flex-shrink:0;transition:transform .2s;}
-details.card[open] summary .arr{transform:rotate(90deg);}
-.card-body{padding:0 14px 14px;font-size:14px;}
-.card-body p{margin:0 0 8px;}
-.card-body ul{margin:6px 0 8px;padding-left:18px;}
-.card-body li{margin-bottom:4px;line-height:1.5;}
-.hook{color:var(--stamp);font-weight:700;}
+details.acc summary::-webkit-details-marker{display:none;}
+.acc-arrow{
+  font-family:var(--fa);font-size:16px;color:var(--muted);
+  flex-shrink:0;transition:transform .2s;line-height:1;
+}
+details.acc[open]>.acc-arrow,
+details.acc[open] summary .acc-arrow{transform:rotate(45deg);color:var(--green);}
+details.acc[open]{border-color:rgba(6,214,160,.3);}
+.acc-body{padding:0 14px 14px;font-size:14px;color:var(--dim);}
+.acc-body p{margin:0 0 8px;line-height:1.6;}
+.acc-body ul{margin:6px 0 8px;padding-left:18px;}
+.acc-body li{margin-bottom:4px;line-height:1.55;}
+.hook{color:var(--orange);font-weight:700;}
 .sl{
-  font-family:var(--ff-m);font-size:12px;
-  background:rgba(44,107,97,.08);border-radius:6px;
-  padding:7px 10px;margin:6px 0;
+  background:var(--surf);border-radius:8px;
+  padding:8px 12px;margin:6px 0;font-size:13px;
+  color:var(--dim);line-height:1.55;
 }
-.en{color:var(--teal);font-weight:700;}
-
-/* ── ESCOLA TAB ── */
-.escola-note{
-  font-size:13px;color:var(--paper-soft);opacity:.85;
-  background:var(--bg-soft);border-radius:8px;padding:10px 12px;
-  margin-bottom:14px;
-}
+.en{color:var(--cyan);font-weight:700;}
 
 /* ── PWA BANNER ── */
 #pwa-banner{
-  display:none;position:fixed;bottom:calc(var(--nav-h) + var(--safe-bot) + 8px);
-  left:8px;right:8px;z-index:200;
-  background:var(--bg-soft);border:1px solid var(--line);border-radius:14px;
-  padding:12px 14px;gap:10px;align-items:center;flex-wrap:wrap;
-  box-shadow:0 -4px 20px rgba(0,0,0,.4);
+  display:none;position:fixed;
+  bottom:calc(var(--nav-h) + var(--safe-bot) + 10px);
+  left:10px;right:10px;z-index:200;
+  background:var(--elev);border:1px solid var(--gbord);
+  border-radius:16px;padding:12px 14px;gap:10px;
+  align-items:center;flex-wrap:wrap;
+  box-shadow:0 4px 30px rgba(168,85,247,.25);
 }
 #pwa-banner.visible{display:flex;}
-#pwa-banner .pwa-text{flex:1;font-family:var(--ff-m);font-size:12px;color:var(--paper-soft);min-width:160px;}
-#pwa-banner .pwa-text b{color:var(--paper);display:block;margin-bottom:2px;}
-#pwa-btn-install{
-  font-family:var(--ff-m);font-size:12px;font-weight:700;
-  background:var(--brass-soft);color:var(--ink);border:none;
-  border-radius:8px;padding:9px 16px;cursor:pointer;white-space:nowrap;
+.pwa-txt{flex:1;min-width:160px;font-size:12.5px;}
+.pwa-txt b{color:var(--white);display:block;margin-bottom:2px;font-family:var(--fd);font-size:15px;}
+#btn-install{
+  font-family:var(--fa);font-size:10px;font-weight:600;
+  background:var(--violet);color:var(--white);border:none;
+  border-radius:10px;padding:9px 16px;cursor:pointer;letter-spacing:.05em;
 }
-#pwa-btn-dismiss{
-  font-family:var(--ff-m);font-size:11px;background:none;
-  border:1px solid var(--line);color:var(--paper-soft);
-  border-radius:8px;padding:9px 12px;cursor:pointer;white-space:nowrap;
+#btn-dismiss{
+  font-family:var(--fa);font-size:9px;background:none;
+  border:1px solid var(--gbord);color:var(--muted);
+  border-radius:10px;padding:9px 12px;cursor:pointer;
 }
 
 /* ── INSTALL MODAL ── */
-#install-modal{
+#inst-modal{
   display:none;position:fixed;inset:0;z-index:300;
-  background:rgba(0,0,0,.75);align-items:flex-end;
-  justify-content:center;padding-bottom:calc(var(--safe-bot) + 12px);
+  background:rgba(3,0,17,.8);align-items:flex-end;
+  justify-content:center;padding-bottom:calc(var(--safe-bot) + 14px);
 }
-#install-modal.visible{display:flex;}
+#inst-modal.visible{display:flex;}
 .modal-box{
-  background:var(--bg-soft);border:1px solid var(--line);
-  border-radius:16px;padding:20px 20px 24px;
+  background:var(--elev);border:1px solid var(--gbord);
+  border-radius:20px;padding:22px 20px 26px;
   max-width:380px;width:calc(100% - 24px);
-  font-family:var(--ff-b);color:var(--paper);font-size:14px;
-  line-height:1.55;position:relative;
+  color:var(--dim);font-size:14px;line-height:1.6;position:relative;
 }
-.modal-box h3{font-family:var(--ff-d);font-size:18px;margin:0 0 12px;}
+.modal-box h3{font-family:var(--fd);font-size:20px;color:var(--white);margin:0 0 12px;}
 .modal-box ol{margin:0 0 14px;padding-left:20px;}
-.modal-box li{margin-bottom:6px;}
-.modal-box .close-btn{
-  position:absolute;top:12px;right:12px;
-  background:none;border:none;color:var(--paper-soft);
-  font-size:20px;cursor:pointer;padding:4px;line-height:1;
+.modal-box li{margin-bottom:7px;}
+.modal-box b{color:var(--white);}
+.modal-close{
+  position:absolute;top:14px;right:14px;background:none;
+  border:none;color:var(--muted);font-size:20px;cursor:pointer;padding:4px;
 }
-.modal-note{font-size:12px;color:var(--paper-soft);margin:0;}
+.modal-note{font-size:11.5px;color:var(--muted);margin:0;}
+
+/* ── BOARDING PASS ── */
+.bp-wrap{display:flex;flex-direction:column;gap:10px;margin-bottom:16px;}
+.bp{background:var(--surf);border:1px solid var(--gbord);border-radius:16px;overflow:hidden;position:relative;}
+.bp-band{
+  background:var(--grad);padding:5px 14px;
+  display:flex;justify-content:space-between;align-items:center;
+  font-family:var(--fa);font-size:8px;font-weight:700;
+  color:rgba(3,0,17,.85);letter-spacing:.1em;
+}
+.bp-main{padding:14px 14px 8px;display:flex;align-items:center;}
+.bp-iata{font-family:var(--fd);font-size:40px;font-weight:700;color:var(--white);line-height:1;}
+.bp-city-name{font-family:var(--fa);font-size:8px;color:var(--muted);letter-spacing:.06em;margin-top:2px;}
+.bp-mid{flex:1;text-align:center;padding:0 8px;}
+.bp-plane-icon{font-size:20px;display:block;margin-bottom:3px;filter:drop-shadow(0 0 6px var(--cyan));}
+.bp-flight-line{height:1px;background:linear-gradient(90deg,transparent,var(--muted),transparent);}
+.bp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:4px 8px;padding:4px 14px 8px;}
+.bp-lbl{font-family:var(--fa);font-size:7px;color:var(--muted);letter-spacing:.07em;text-transform:uppercase;}
+.bp-val{font-family:var(--fa);font-size:11.5px;color:var(--dim);margin-top:2px;}
+.bp-tear{
+  border-top:2px dashed rgba(180,140,255,.18);margin:0 12px;position:relative;
+}
+.bp-tear::before,.bp-tear::after{
+  content:"";position:absolute;top:-9px;width:16px;height:16px;
+  border-radius:50%;background:var(--void);
+}
+.bp-tear::before{left:-20px;}.bp-tear::after{right:-20px;}
+.bp-barcode{
+  height:30px;margin:8px 14px 12px;opacity:.18;border-radius:3px;
+  background:repeating-linear-gradient(90deg,
+    var(--dim) 0,var(--dim) 2px,transparent 2px,transparent 4px,
+    var(--dim) 4px,var(--dim) 5px,transparent 5px,transparent 8px,
+    var(--dim) 8px,var(--dim) 10px,transparent 10px,transparent 14px,
+    var(--dim) 14px,var(--dim) 15px,transparent 15px,transparent 19px,
+    var(--dim) 19px,var(--dim) 21px,transparent 21px,transparent 26px,
+    var(--dim) 26px,var(--dim) 27px,transparent 27px,transparent 30px,
+    var(--dim) 30px,var(--dim) 32px,transparent 32px,transparent 36px,
+    var(--dim) 36px,var(--dim) 37px
+  );
+}
+/* ── PLANE FLYBY ── */
+@keyframes flyby{
+  0%{transform:translateX(-70px) rotate(5deg);opacity:0;}
+  6%{opacity:1;}
+  93%{opacity:1;}
+  100%{transform:translateX(110vw) rotate(-2deg);opacity:0;}
+}
+.plane-fly{
+  position:fixed;
+  top:calc(var(--hdr-h)/2 + var(--safe-top) - 14px);
+  left:0;font-size:24px;pointer-events:none;z-index:99;
+  animation:flyby 4s cubic-bezier(.2,.6,.4,1) 0.5s both;
+}
+
+.sparks::before{left:8%;top:-4px;color:var(--cyan);animation-delay:0s;}
+.sparks::after{right:12%;top:-6px;color:var(--violet);animation-delay:1.1s;}
+/* ── PRIDE BADGE ── */
+.pride-badge{
+  display:inline-block;font-family:var(--fa);font-size:8px;
+  letter-spacing:.08em;color:var(--white);padding:2px 10px;
+  border-radius:999px;background:var(--grad);font-weight:700;
+  vertical-align:middle;margin-left:6px;
+}
+/* ── DEST STAMP ── */
+.dest-stamp{
+  position:absolute;top:12px;right:12px;
+  width:50px;height:50px;border-radius:50%;
+  border:1.5px solid rgba(168,85,247,.35);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  font-family:var(--fa);font-size:7px;letter-spacing:.06em;
+  color:rgba(168,85,247,.45);text-transform:uppercase;text-align:center;line-height:1.4;
+  transform:rotate(-14deg);pointer-events:none;
+}
+.dest-stamp .ds-ico{font-size:13px;line-height:1;margin-bottom:1px;}
+/* ── RAINBOW RULE ── */
+.rainbow-rule{
+  height:2px;background:var(--grad);border:none;
+  border-radius:2px;margin:20px 0;opacity:.5;
+}
 </style>
 </head>
 <body>
 
-<!-- ═══ APP HEADER ═══ -->
-<header class="app-header">
-  <div>
-    <div class="app-header-title">Londres</div>
-    <div class="app-header-sub" id="hdr-sub">01–02 JUL 2026 · BER ⇄ STN</div>
+<header class="hdr">
+  <div class="hdr-loc">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--cyan)"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+    <span class="hdr-city">LONDON</span>
   </div>
-  <div class="app-header-flag">🇬🇧</div>
+  <div class="hdr-center" id="hdr-sub">DIA 1 · QUA 01 JUL</div>
+  <div class="hdr-right">
+    <span class="hdr-dates">01–02 JUL</span>
+    <span class="hdr-flag">🇬🇧</span>
+  </div>
 </header>
+<div class="plane-fly">✈</div>
 
-<!-- ═══ PANELS WRAP (swipeable) ═══ -->
+<div class="wrap" id="wrap">
 <div class="panels-wrap" id="panels-wrap">
 
 <!-- ══════════════ DIA 1 ══════════════ -->
 <section class="panel active" id="dia1">
-  <h2 class="section-title"><span class="kicker">QUA · 01 JUL</span>Livrarias, Big Ben, Beatles &amp; Heartstopper</h2>
+  <h2 class="sect-title"><span class="eyebrow">QUA · 01 JUL</span>Livrarias, Big Ben, Beatles &amp; Heartstopper</h2>
 
-  <div class="tickets">
-    <div class="ticket">
-      <div class="ticket-route">BER ✈ STN</div>
-      <div class="ticket-meta">Qua 01/07 · sai <b>09:35</b> · chega <b>10:25</b></div>
+  <div class="bp-wrap">
+    <div class="bp">
+      <div class="bp-band"><span>EMBARQUE · QUA 01 JUL 2026</span><span>🏳️‍🌈 BOA VIAGEM ROD</span></div>
+      <div class="bp-main">
+        <div><div class="bp-iata">BER</div><div class="bp-city-name">BERLIM · BRB</div></div>
+        <div class="bp-mid"><span class="bp-plane-icon">✈</span><div class="bp-flight-line"></div></div>
+        <div style="text-align:right"><div class="bp-iata">STN</div><div class="bp-city-name">STANSTED · STN</div></div>
+      </div>
+      <div class="bp-grid">
+        <div><div class="bp-lbl">Data</div><div class="bp-val">01 JUL 26</div></div>
+        <div><div class="bp-lbl">Saída</div><div class="bp-val">09:35</div></div>
+        <div><div class="bp-lbl">Chegada</div><div class="bp-val">10:25</div></div>
+        <div><div class="bp-lbl">Duração</div><div class="bp-val">1h 50m</div></div>
+      </div>
+      <div class="bp-tear"></div>
+      <div class="bp-barcode"></div>
     </div>
-    <div class="ticket">
-      <div class="ticket-route">STN ✈ BER</div>
-      <div class="ticket-meta">Qui 02/07 · sai <b>18:05</b> · chega <b>20:50</b></div>
+    <div class="bp">
+      <div class="bp-band"><span>RETORNO · QUI 02 JUL 2026</span><span>🌈 ATÉ A PRÓXIMA</span></div>
+      <div class="bp-main">
+        <div><div class="bp-iata">STN</div><div class="bp-city-name">STANSTED · STN</div></div>
+        <div class="bp-mid"><span class="bp-plane-icon">✈</span><div class="bp-flight-line"></div></div>
+        <div style="text-align:right"><div class="bp-iata">BER</div><div class="bp-city-name">BERLIM · BRB</div></div>
+      </div>
+      <div class="bp-grid">
+        <div><div class="bp-lbl">Data</div><div class="bp-val">02 JUL 26</div></div>
+        <div><div class="bp-lbl">Saída</div><div class="bp-val">18:05</div></div>
+        <div><div class="bp-lbl">Chegada</div><div class="bp-val">20:50</div></div>
+        <div><div class="bp-lbl">Duração</div><div class="bp-val">2h 45m</div></div>
+      </div>
+      <div class="bp-tear"></div>
+      <div class="bp-barcode"></div>
     </div>
   </div>
 
-  <div class="day-summary">
-    <div class="day-summary-row"><span class="ds-time">10:25</span> Pousa em Stansted</div>
-    <div class="day-summary-row"><span class="ds-time">~11:50</span> Stansted Express → Liverpool Street</div>
-    <div class="day-summary-row"><span class="ds-time">12:05</span> The Common Press (Shoreditch)</div>
-    <div class="day-summary-row"><span class="ds-time">13:10</span> Gay's The Word</div>
-    <div class="day-summary-row"><span class="ds-time">14:10</span> British Library — Treasures Gallery</div>
-    <div class="day-summary-row"><span class="ds-time">15:15</span> Big Ben / Westminster</div>
-    <div class="day-summary-row"><span class="ds-time">16:05</span> Buckingham Palace</div>
-    <div class="day-summary-row"><span class="ds-time">16:40</span> Savile Row (Beatles) — se sobrar tempo</div>
-    <div class="day-summary-row"><span class="ds-time">17:10</span> Volta pro Airbnb, banho</div>
-    <div class="day-summary-row"><span class="ds-time">18:00</span> <span class="ds-flag">Alexandra Palace Theatre — Heartstopper</span></div>
-    <div class="day-summary-row"><span class="ds-time">~21:15</span> Jantar barato no caminho de volta</div>
+  <div class="day-sum">
+    <div class="ds-row"><span class="ds-t">10:25</span> Pousa em Stansted</div>
+    <div class="ds-row"><span class="ds-t">~11:50</span> Stansted Express → Liverpool Street</div>
+    <div class="ds-row"><span class="ds-t">12:05</span> The Common Press (Shoreditch)</div>
+    <div class="ds-row"><span class="ds-t">13:10</span> Gay's The Word</div>
+    <div class="ds-row"><span class="ds-t">14:10</span> British Library — Treasures Gallery</div>
+    <div class="ds-row"><span class="ds-t">15:15</span> Big Ben / Westminster</div>
+    <div class="ds-row"><span class="ds-t">16:05</span> Buckingham Palace</div>
+    <div class="ds-row"><span class="ds-t">16:40</span> Savile Row (Beatles) — se sobrar tempo</div>
+    <div class="ds-row"><span class="ds-t">17:10</span> Volta pro Airbnb, banho</div>
+    <div class="ds-row"><span class="ds-t">18:00</span> <span class="ds-v ds-flag">Alexandra Palace Theatre — Heartstopper</span></div>
+    <div class="ds-row"><span class="ds-t">~21:15</span> Jantar barato no caminho de volta</div>
   </div>
 
-  <a class="route-cta" href="https://www.google.com/maps/dir/?api=1&origin=51.5246846,-0.0718897&destination=51.5985465,-0.1373121&waypoints=51.525429,-0.125237%7C51.5299717,-0.1276759%7C51.5007292,-0.1246254%7C51.501364,-0.14189%7C51.5104697,-0.1395926%7C51.5949944,-0.130219" target="_blank" rel="noopener">🗺️ Abrir rota completa do Dia 1 no Maps</a>
+  <a class="route-btn" href="https://www.google.com/maps/dir/?api=1&origin=51.5246846,-0.0718897&destination=51.5985465,-0.1373121&waypoints=51.525429,-0.125237%7C51.5299717,-0.1276759%7C51.5007292,-0.1246254%7C51.501364,-0.14189%7C51.5104697,-0.1395926%7C51.5949944,-0.130219" target="_blank" rel="noopener">🗺️ Abrir rota completa do Dia 1 no Maps</a>
 
   <div class="timeline">
 
@@ -359,7 +507,7 @@ details.card[open] summary .arr{transform:rotate(90deg);}
       <div class="addr">66 Marchmont St, WC1N 1AB · 11h–18h (fechada segunda)</div>
       <div class="map-wrap"><iframe src="https://maps.google.com/maps?q=51.525429,-0.125237&z=16&output=embed" loading="lazy"></iframe></div>
       <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=51.525429,-0.125237" target="_blank" rel="noopener">📍 Abrir no Maps</a>
-      <div class="tags"><span class="tag">📚 livraria</span><span class="tag">🏳️‍🌈 queer</span></div>
+      <div class="tags"><span class="tag">📚 livraria</span><span class="tag">🏳️‍🌈 queer</span><span class="pride-badge">LGBTQ+ ICON</span></div>
       <p>A livraria queer mais antiga do Reino Unido, aberta em 7 de janeiro de 1979 por um grupo socialista chamado Gay Icebreakers — um dos fundadores, Ernest Hole, vendia livros gays de uma mochila antes disso.</p>
       <p><b>A história mais forte:</b> em 10 de abril de 1984, a alfândega britânica invadiu a loja numa operação chamada <b>"Operation Tiger"</b> — mandaram os clientes saírem e confiscaram um terço de todo o estoque importado. Entre os "livros obscenos" confiscados: obras de Oscar Wilde, Jean-Paul Sartre, Tennessee Williams e Gore Vidal. O gerente e 8 diretores foram formalmente acusados de "conspiração para importar material indecente" — 100 acusações. Autores como Gore Vidal e Angela Carter, e editoras como Penguin e Faber, doaram dinheiro pra defesa. Em 1986, o caso foi arquivado.</p>
       <p>A loja sobreviveu a quase-fechamento em 2007 (salva por campanha popular) e aparece dramatizada no filme <i>Pride</i> (2014). Tem recomendações escritas à mão pelos funcionários nas estantes.</p>
@@ -405,7 +553,7 @@ details.card[open] summary .arr{transform:rotate(90deg);}
       <p>Narrativa honesta pro vídeo: "tentei pegar a troca da guarda e não consegui, mas olha o que vi no caminho".</p>
     </div>
 
-    <div class="stop optional">
+    <div class="stop stop-opt">
       <span class="badge-opt">se sobrar tempo</span>
       <div class="stop-time">16:40 – 16:55</div>
       <h3>3 Savile Row — Beatles</h3>
@@ -428,9 +576,9 @@ details.card[open] summary .arr{transform:rotate(90deg);}
       <p>Banho, troca de roupa, carrega as câmeras. Sem o Savile Row chega ~17h10 e tem uma folga boa.</p>
     </div>
 
-    <div class="stop highlight">
+    <div class="stop stop-hero">
       <div class="stop-time">18:00 – ~21:00</div>
-      <h3>Alexandra Palace Theatre — Heartstopper Vol. 6</h3>
+      <div class="dest-stamp"><div class="ds-ico">💜</div>ALLY<br>PALLY</div><h3>Alexandra Palace Theatre — Heartstopper Vol. 6</h3>
       <div class="addr">Alexandra Palace Way, N22 7AY · 15-20min a pé do Airbnb</div>
       <div class="map-wrap"><iframe src="https://maps.google.com/maps?q=51.5949944,-0.130219&z=16&output=embed" loading="lazy"></iframe></div>
       <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=51.5949944,-0.130219" target="_blank" rel="noopener">📍 Abrir no Maps</a>
@@ -457,20 +605,20 @@ details.card[open] summary .arr{transform:rotate(90deg);}
 
 <!-- ══════════════ DIA 2 ══════════════ -->
 <section class="panel" id="dia2">
-  <h2 class="section-title"><span class="kicker">QUI · 02 JUL · lançamento oficial do livro</span>Sherlock → Chicletes → Amy Winehouse → Douglas Adams → kebab da Taylor</h2>
+  <h2 class="sect-title"><span class="eyebrow">QUI · 02 JUL · lançamento oficial do livro</span>Sherlock → Chicletes → Amy Winehouse → Douglas Adams → kebab da Taylor</h2>
 
-  <div class="day-summary">
-    <div class="day-summary-row"><span class="ds-time">08:00</span> Check-out + takeaway qualquer</div>
-    <div class="day-summary-row"><span class="ds-time">09:30</span> Baker Street — Sherlock Holmes</div>
-    <div class="day-summary-row"><span class="ds-time">10:15</span> Camden — Hans &amp; Gretel (chicletes pro Marcelo!) + Amy Winehouse</div>
-    <div class="day-summary-row"><span class="ds-time">11:15</span> <span class="ds-flag">Highgate Cemetery — Douglas Adams + Karl Marx</span></div>
-    <div class="day-summary-row"><span class="ds-time">12:15</span> Kentish Delight — kebab da Taylor Swift (almoço)</div>
-    <div class="day-summary-row"><span class="ds-time">13:20</span> Fenchurch Street — Douglas Adams (estação)</div>
-    <div class="day-summary-row"><span class="ds-time">13:45</span> Liverpool Street → trem Greater Anglia (mais barato)</div>
-    <div class="day-summary-row"><span class="ds-time">18:05</span> <span class="ds-flag">Voo STN → BER</span></div>
+  <hr class="rainbow-rule">
+  <div class="day-sum">
+    <div class="ds-row"><span class="ds-t">08:00</span> Check-out + takeaway qualquer</div>
+    <div class="ds-row"><span class="ds-t">09:30</span> Baker Street — Sherlock Holmes</div>
+    <div class="ds-row"><span class="ds-t">10:15</span> Camden — Hans &amp; Gretel (chicletes pro Marcelo!) + Amy Winehouse</div>
+    <div class="ds-row"><span class="ds-t">11:15</span> Kentish Delight — kebab da Taylor Swift (almoço)</div>
+    <div class="ds-row"><span class="ds-t">13:20</span> Fenchurch Street — Douglas Adams (estação)</div>
+    <div class="ds-row"><span class="ds-t">13:45</span> Liverpool Street → trem Greater Anglia (mais barato)</div>
+    <div class="ds-row"><span class="ds-t">18:05</span> <span class="ds-v ds-flag">Voo STN → BER</span></div>
   </div>
 
-  <a class="route-cta" href="https://www.google.com/maps/dir/?api=1&origin=51.5984649,-0.1373349&destination=51.518077,-0.0815777&waypoints=51.523767,-0.1585557%7C51.5411058,-0.1426136%7C51.566918,-0.1467755%7C51.5515421,-0.1413328%7C51.5117122,-0.0790619" target="_blank" rel="noopener">🗺️ Abrir rota completa do Dia 2 no Maps</a>
+  <a class="route-btn" href="https://www.google.com/maps/dir/?api=1&origin=51.5984649,-0.1373349&destination=51.518077,-0.0815777&waypoints=51.523767,-0.1585557%7C51.5411058,-0.1426136%7C51.5515421,-0.1413328%7C51.5117122,-0.0790619" target="_blank" rel="noopener">🗺️ Abrir rota completa do Dia 2 no Maps</a>
 
   <div class="timeline">
 
@@ -496,7 +644,7 @@ details.card[open] summary .arr{transform:rotate(90deg);}
       <p class="tip">💡 Museu por dentro £16-19 e não aceita mochila — fica só na estátua e na porta do 221B, de graça.</p>
     </div>
 
-    <div class="stop highlight">
+    <div class="stop stop-hero">
       <div class="stop-time">10:15 – 11:10</div>
       <h3>Camden — Hans &amp; Gretel + Amy Winehouse</h3>
       <div class="addr">Hans &amp; Gretel: Camden Lock Place, NW1 8AH · abre 11h · ~15min de Baker Street (Northern Line, 2 paradas)</div>
@@ -508,22 +656,9 @@ details.card[open] summary .arr{transform:rotate(90deg);}
       <p class="tip">💡 A estátua da Amy fica dentro do Stables Market, ao fundo do Camden Lock — fica a ~5min de caminhada do Hans &amp; Gretel.</p>
     </div>
 
-    <div class="stop highlight">
-      <div class="stop-time">11:15 – 12:05</div>
-      <h3>Highgate Cemetery — Douglas Adams</h3>
-      <div class="addr">Swain's Ln, N6 6PJ · East Cemetery abre 10h-17h · entrada £10 · só cartão, sem cash · Bus 214 de Camden (12min)</div>
-      <div class="map-wrap"><iframe src="https://maps.google.com/maps?q=51.566918,-0.1467755&z=16&output=embed" loading="lazy"></iframe></div>
-      <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=51.566918,-0.1467755" target="_blank" rel="noopener">📍 Abrir no Maps</a>
-      <div class="tags"><span class="tag">🔢 42</span><span class="tag">📚 literário</span><span class="tag">🪦 highgate</span></div>
-      <p><b>Como chegar:</b> do Camden Lock, pega o ônibus 214 direto pra Swain's Lane — 12 minutos, sem troca. Entrada East Cemetery £8. Compra o ingresso na bilheteria na entrada.</p>
-      <p><b>O túmulo de Douglas Adams:</b> fica no East Cemetery, seção V. Os fãs não deixam flores — deixam <b>canetas</b> em homenagem a um escritor. A lápide tem apenas o nome e as datas (1952–2001). Adams morreu de ataque cardíaco em Santa Bárbara, Califórnia, aos 49 anos. Gancho fantástico pro reel: a tatuagem do 42 ao lado das canetas deixadas pelos fãs.</p>
-      <p><b>Outros na vizinhança (East Cemetery):</b> <b>Karl Marx</b> — famoso monumento vermelho com o busto dele e "WORKERS OF ALL LANDS UNITE", um dos túmulos mais visitados do mundo, já vandalizado várias vezes mas sempre restaurado. <b>George Michael</b> — morreu no Natal de 2016; fãs ainda deixam mensagens e flores.</p>
-      <p><b>A atmosfera:</b> nota 4.7 com 1.562 avaliações — descrito como "tranquilo e cheio de história", com raposas sendo vistas andando entre os túmulos. O visual é gótico vitoriano, ótimo pra B-roll atmosférico.</p>
-      <p class="tip">💡 Saí daqui às 12:05 pra garantir o Kentish Delight assim que abre ao meio-dia — de ônibus são ~15min.</p>
-    </div>
 
     <div class="stop">
-      <div class="stop-time">12:15 – 13:05</div>
+      <div class="stop-time">11:1512:15 – 13:05</div>
       <h3>Kentish Delight — Kebab da Taylor Swift</h3>
       <div class="addr">381 Kentish Town Rd, NW5 2TJ · abre meio-dia · halal</div>
       <div class="map-wrap"><iframe src="https://maps.google.com/maps?q=51.5515421,-0.1413328&z=16&output=embed" loading="lazy"></iframe></div>
@@ -558,7 +693,7 @@ details.card[open] summary .arr{transform:rotate(90deg);}
       <p class="tip">💡 No Trainline ou National Rail, busca "Greater Anglia" pra Stansted — não compra o "Stansted Express" que é mais caro.</p>
     </div>
 
-    <div class="forabox">
+    <div class="fora-box">
       <b>📌 Ficou de fora desta vez:</b>
       Dalloway Terrace (Virginia Woolf, Bloomsbury), Notting Hill (livraria do filme + porta azul do Richard Curtis). Boa desculpa pra voltar um dia com mais tempo.
     </div>
@@ -568,18 +703,18 @@ details.card[open] summary .arr{transform:rotate(90deg);}
 
 <!-- ══════════════ CONTEÚDO ══════════════ -->
 <section class="panel" id="conteudo">
-  <h2 class="section-title"><span class="kicker">Roteiro de conteúdo</span>Vlogs + Reels</h2>
+  <h2 class="sect-title"><span class="eyebrow">Roteiro de conteúdo</span>Vlogs + Reels</h2>
 
-  <div class="info-box">
+  <div class="info-bar">
     <b>🎯 Regra de ouro dos reels</b><br>
     Todo reel tem <b>1:01 ou mais</b>. Os 3 primeiros segundos decidem tudo: comece pelo ponto mais forte (fato contraintuitivo, objeto em close, frase que cria lacuna de curiosidade). Contexto e explicação vêm DEPOIS, nunca antes.
   </div>
 
-  <div class="group-label">Vlogs (30-40min)</div>
+  <div class="group-lbl">Vlogs (30-40min)</div>
 
-  <details class="card" open>
-    <summary>Vlog 1 — Dia 1: livrarias queer, Big Ben, Buckingham <span class="arr">▶</span></summary>
-    <div class="card-body">
+  <details class="acc" open>
+    <summary>Vlog 1 — Dia 1: livrarias queer, Big Ben, Buckingham <span class="acc-arrow">+</span></summary>
+    <div class="acc-body">
       <p><span class="hook">Hook:</span> "Pousei em Londres há 20 minutos e já estou correndo pra uma livraria queer."</p>
       <ul>
         <li><b>Bloco 1:</b> Stansted Express + chegada</li>
@@ -593,58 +728,58 @@ details.card[open] summary .arr{transform:rotate(90deg);}
     </div>
   </details>
 
-  <details class="card">
-    <summary>Vlog 2 — O evento do Heartstopper <span class="arr">▶</span></summary>
-    <div class="card-body">
+  <details class="acc">
+    <summary>Vlog 2 — O evento do Heartstopper <span class="acc-arrow">+</span></summary>
+    <div class="acc-body">
       <p>Fila/expectativa → entrando no teatro → drawalong/quiz → retirada do livro autografado + tote bag → resumo emocional saindo.</p>
       <p class="sl">💡 Menciona que Alexandra Palace foi onde a BBC fez a primeira transmissão de TV do mundo em 1936 — "the birthplace of television, hoje é palco de um lançamento de livro queer".</p>
     </div>
   </details>
 
-  <details class="card">
-    <summary>Vlog 3 — Dia 2: Sherlock, Amy, Douglas Adams &amp; Taylor <span class="arr">▶</span></summary>
-    <div class="card-body">
+  <details class="acc">
+    <summary>Vlog 3 — Dia 2: Sherlock, Amy, Douglas Adams &amp; Taylor <span class="acc-arrow">+</span></summary>
+    <div class="acc-body">
       <p><span class="hook">Hook:</span> "Hoje é dia de lançamento oficial do livro — e o primeiro programa é comprar chicletes pra um amigo."</p>
       <ul>
         <li><b>Bloco 1:</b> check-out, takeaway rápido, saindo</li>
         <li><b>Bloco 2:</b> Baker Street — Sherlock e a secretária que respondia cartas</li>
         <li><b>Bloco 3:</b> Camden — Hans &amp; Gretel, chicletes, estátua da Amy Winehouse</li>
-        <li><b>Bloco 4:</b> Highgate Cemetery — Douglas Adams, as canetas dos fãs, Karl Marx</li>
+        <li><b>Bloco 4:</b> Kentish Delight — kebab da Taylor, primeira mordida</li>
         <li><b>Bloco 5:</b> Kentish Delight — kebab da Taylor, primeira mordida</li>
         <li><b>Bloco 6:</b> Fenchurch Street e corrida pro aeroporto</li>
       </ul>
     </div>
   </details>
 
-  <details class="card">
-    <summary>Vlog 4 — Caça aos lugares queer de Londres <span class="arr">▶</span></summary>
-    <div class="card-body">
+  <details class="acc">
+    <summary>Vlog 4 — Caça aos lugares queer de Londres <span class="acc-arrow">+</span></summary>
+    <div class="acc-body">
       <p><span class="hook">Hook:</span> "3 lugares queer em Londres que nenhum guia de turismo te conta — e um deles quase foi fechado pelo governo."</p>
       <p>Recombina: Gay's The Word + The Common Press + evento Heartstopper. Fio condutor: história e presença queer em Londres hoje.</p>
     </div>
   </details>
 
-  <details class="card">
-    <summary>Vlog 5 — Easter eggs literários e pop: Beatles, Sherlock, 42 <span class="arr">▶</span></summary>
-    <div class="card-body">
+  <details class="acc">
+    <summary>Vlog 5 — Easter eggs literários e pop: Beatles, Sherlock, 42 <span class="acc-arrow">+</span></summary>
+    <div class="acc-body">
       <p><span class="hook">Hook:</span> "Essa tatuagem só faz sentido numa esquina específica de Londres — e eu fui lá."</p>
-      <p>Recombina: Savile Row (Beatles) + Baker Street (Sherlock) + Fenchurch Street/Highgate (Douglas Adams). Formato "caça ao tesouro cultural" — três referências pop escondidas na cidade real.</p>
+      <p>Recombina: Savile Row (Beatles) + Baker Street (Sherlock) + Fenchurch Street (Douglas Adams). Formato "caça ao tesouro cultural" — três referências pop escondidas na cidade real.</p>
     </div>
   </details>
 
-  <details class="card">
-    <summary>Vlog 6 — Book haul de Londres <span class="arr">▶</span></summary>
-    <div class="card-body">
+  <details class="acc">
+    <summary>Vlog 6 — Book haul de Londres <span class="acc-arrow">+</span></summary>
+    <div class="acc-body">
       <p><span class="hook">Hook:</span> "Voltei de Londres com mais livros do que roupa limpa."</p>
       <p>Recombina: Gay's The Word + The Common Press + British Library + Heartstopper autografado. Formato book haul — mostra cada compra, conta o contexto, fecha avaliando qual te deixou mais animado.</p>
     </div>
   </details>
 
-  <div class="group-label">Reels — @rodindica (literário, português)</div>
+  <div class="group-lbl">Reels — @rodindica (literário, português)</div>
 
-  <details class="card">
-    <summary>1. A livraria gay que o governo quis fechar <span class="arr">▶</span></summary>
-    <div class="card-body">
+  <details class="acc">
+    <summary>1. A livraria gay que o governo quis fechar <span class="acc-arrow">+</span></summary>
+    <div class="acc-body">
       <div class="sl"><b>Duração:</b> ~1:15 · <b>Gancho (0:00-0:03):</b> close no letreiro "Gay's The Word" + corte seco pra dentro: <i>"Essa livraria quase foi fechada pelo governo britânico."</i></div>
       <ul>
         <li>0:03-0:15: panorâmica das estantes</li>
@@ -655,9 +790,9 @@ details.card[open] summary .arr{transform:rotate(90deg);}
     </div>
   </details>
 
-  <details class="card">
-    <summary>2. O manuscrito original de Alice no País das Maravilhas <span class="arr">▶</span></summary>
-    <div class="card-body">
+  <details class="acc">
+    <summary>2. O manuscrito original de Alice no País das Maravilhas <span class="acc-arrow">+</span></summary>
+    <div class="acc-body">
       <div class="sl"><b>Duração:</b> ~1:10 · <b>Gancho (0:00-0:03):</b> plano fechado na vitrine + sussurro: <i>"Isso tem 160 anos e está a um metro de mim."</i></div>
       <ul>
         <li>0:03-0:20: revela o cenário (British Library, gratuita)</li>
@@ -668,9 +803,9 @@ details.card[open] summary .arr{transform:rotate(90deg);}
     </div>
   </details>
 
-  <details class="card">
-    <summary>3. O livro que Virginia Woolf escreveu por amor <span class="arr">▶</span></summary>
-    <div class="card-body">
+  <details class="acc">
+    <summary>3. O livro que Virginia Woolf escreveu por amor <span class="acc-arrow">+</span></summary>
+    <div class="acc-body">
       <div class="sl"><b>Duração:</b> ~1:10 · <b>Gancho (0:00-0:03):</b> mostra capa de <i>Orlando</i> + <i>"Virginia Woolf escreveu esse livro como carta de amor — e ele é sobre fluidez de gênero."</i></div>
       <ul>
         <li>0:03-0:25: Woolf e Vita Sackville-West, relacionamento amoroso</li>
@@ -680,9 +815,9 @@ details.card[open] summary .arr{transform:rotate(90deg);}
     </div>
   </details>
 
-  <details class="card">
-    <summary>4. Retirando o Heartstopper Vol. 6 autografado <span class="arr">▶</span></summary>
-    <div class="card-body">
+  <details class="acc">
+    <summary>4. Retirando o Heartstopper Vol. 6 autografado <span class="acc-arrow">+</span></summary>
+    <div class="acc-body">
       <div class="sl"><b>Duração:</b> ~1:15 · <b>Gancho (0:00-0:03):</b> tote bag fechada em close + <i>"Esperei meses por isso — e vem autografado."</i></div>
       <ul>
         <li>0:03-0:20: contexto rápido (evento, véspera do lançamento)</li>
@@ -693,24 +828,12 @@ details.card[open] summary .arr{transform:rotate(90deg);}
     </div>
   </details>
 
-  <details class="card">
-    <summary>5. Fãs não deixam flores nesse túmulo — deixam canetas <span class="arr">▶</span></summary>
-    <div class="card-body">
-      <div class="sl"><b>Duração:</b> ~1:15 · <b>Gancho (0:00-0:03):</b> close nas canetas amontoadas no túmulo + <i>"Por que fãs deixam canetas num túmulo?"</i></div>
-      <ul>
-        <li>0:03-0:30: revela — túmulo de Douglas Adams, Highgate Cemetery</li>
-        <li>0:30-0:55: mostra a tatuagem do 42 ao lado da lápide</li>
-        <li>0:55-1:10: conta a história do 42 rapidamente</li>
-        <li>1:10-1:15: "a resposta é uma piada — e ninguém sabe a piada de verdade"</li>
-      </ul>
-    </div>
-  </details>
 
-  <div class="group-label">Reels — @irodcarvalho (influencer pessoal)</div>
+  <div class="group-lbl">Reels — @irodcarvalho (influencer pessoal)</div>
 
-  <details class="card">
-    <summary>1. Kebab da Taylor Swift vs. Döner de Berlim <span class="arr">▶</span></summary>
-    <div class="card-body">
+  <details class="acc">
+    <summary>1. Kebab da Taylor Swift vs. Döner de Berlim <span class="acc-arrow">+</span></summary>
+    <div class="acc-body">
       <div class="sl"><b>Duração:</b> ~1:20 · <b>Gancho (0:00-0:03):</b> segura os dois kebabs + <i>"Paguei o mesmo kebab que a Taylor Swift pedia."</i></div>
       <ul>
         <li>0:03-0:20: conta a história (End Game, Joe Alwyn, pedido de £450)</li>
@@ -721,9 +844,9 @@ details.card[open] summary .arr{transform:rotate(90deg);}
     </div>
   </details>
 
-  <details class="card">
-    <summary>2. Comprei chicletes num país diferente pra um amigo <span class="arr">▶</span></summary>
-    <div class="card-body">
+  <details class="acc">
+    <summary>2. Comprei chicletes num país diferente pra um amigo <span class="acc-arrow">+</span></summary>
+    <div class="acc-body">
       <div class="sl"><b>Duração:</b> ~1:05 · <b>Gancho (0:00-0:03):</b> mostrando o Hans &amp; Gretel cheio de doces + <i>"Tô em Londres e já sei qual vai ser a primeira parada."</i></div>
       <ul>
         <li>0:03-0:35: mostra o mercado de Camden, entra na confeitaria</li>
@@ -733,9 +856,9 @@ details.card[open] summary .arr{transform:rotate(90deg);}
     </div>
   </details>
 
-  <details class="card">
-    <summary>3. O prédio onde os Beatles tocaram por última vez <span class="arr">▶</span></summary>
-    <div class="card-body">
+  <details class="acc">
+    <summary>3. O prédio onde os Beatles tocaram por última vez <span class="acc-arrow">+</span></summary>
+    <div class="acc-body">
       <div class="sl"><b>Duração:</b> ~1:15 · <b>Gancho (0:00-0:03):</b> câmera sobe pro telhado do Savile Row + <i>"Esse telhado vai virar museu — e desaparecer do jeito que é hoje."</i></div>
       <ul>
         <li>0:03-0:30: conta o show de 1969 com as falas reais de McCartney e Lennon</li>
@@ -745,9 +868,9 @@ details.card[open] summary .arr{transform:rotate(90deg);}
     </div>
   </details>
 
-  <details class="card">
-    <summary>4. POV: chegando no lançamento do Heartstopper <span class="arr">▶</span></summary>
-    <div class="card-body">
+  <details class="acc">
+    <summary>4. POV: chegando no lançamento do Heartstopper <span class="acc-arrow">+</span></summary>
+    <div class="acc-body">
       <div class="sl"><b>Duração:</b> ~1:10 · <b>Gancho (0:00-0:03):</b> sem narração — texto na tela sobre a colina: <i>"não dormi pensando nisso"</i> + som ambiente.</div>
       <ul>
         <li>0:03-0:40: POV subindo a colina do Ally Pally</li>
@@ -757,9 +880,9 @@ details.card[open] summary .arr{transform:rotate(90deg);}
     </div>
   </details>
 
-  <details class="card">
-    <summary>5. 3 lugares queer em Londres que nenhum guia conta <span class="arr">▶</span></summary>
-    <div class="card-body">
+  <details class="acc">
+    <summary>5. 3 lugares queer em Londres que nenhum guia conta <span class="acc-arrow">+</span></summary>
+    <div class="acc-body">
       <div class="sl"><b>Duração:</b> ~1:10 · <b>Gancho (0:00-0:03):</b> dentro de um dos lugares, corte seco: <i>"3 lugares em Londres que nenhum guia de turismo te conta."</i></div>
       <ul>
         <li>0:03-0:25: Gay's The Word</li>
@@ -769,9 +892,9 @@ details.card[open] summary .arr{transform:rotate(90deg);}
     </div>
   </details>
 
-  <details class="card">
-    <summary>6. A estátua que todo fã de Sherlock visita <span class="arr">▶</span></summary>
-    <div class="card-body">
+  <details class="acc">
+    <summary>6. A estátua que todo fã de Sherlock visita <span class="acc-arrow">+</span></summary>
+    <div class="acc-body">
       <div class="sl"><b>Duração:</b> ~1:05 · <b>Gancho (0:00-0:03):</b> close na estátua de bronze + <i>"Esse detetive nunca existiu — e tem estátua, museu e endereço oficial."</i></div>
       <ul>
         <li>0:03-0:30: conta o caso da secretária que respondia cartas</li>
@@ -781,22 +904,21 @@ details.card[open] summary .arr{transform:rotate(90deg);}
     </div>
   </details>
 
-  <details class="card">
-    <summary>7. Minha tatuagem num cemitério de Londres <span class="arr">▶</span></summary>
-    <div class="card-body">
-      <div class="sl"><b>Duração:</b> ~1:15 · <b>Gancho (0:00-0:03):</b> mostra a tatuagem do 42 bem perto da câmera + <i>"Essa tatuagem só faz sentido nesse cemitério."</i></div>
+  <details class="acc">
+    <summary>7. O segredo do 42 que ninguém vai contar <span class="acc-arrow">+</span></summary>
+    <div class="acc-body">
+      <div class="sl"><b>Duração:</b> ~1:10 · <b>Gancho (0:00-0:03):</b> mostra a tatuagem do 42 em close + <i>"Essa tatuagem tem um segredo que só uma pessoa sabe — e ela jurou nunca contar."</i></div>
       <ul>
-        <li>0:03-0:25: revela Highgate Cemetery, Douglas Adams</li>
-        <li>0:25-0:50: conta a história do 42 ("sentei e pensei: 42 serve")</li>
-        <li>0:50-1:05: mostra a tatuagem ao lado da lápide</li>
-        <li>1:05-1:15: Stephen Fry que sabe o segredo e nunca vai contar</li>
+        <li>0:03-0:25: revela: Fenchurch Street, estação batizada por Douglas Adams</li>
+        <li>0:25-0:55: conta a história do 42 ("sentei e pensei: 42 serve")</li>
+        <li>0:55-1:10: Stephen Fry que sabe o verdadeiro motivo e levou o segredo pra tumba</li>
       </ul>
     </div>
   </details>
 
-  <details class="card">
-    <summary>8. 48h em Londres: recap geral <span class="arr">▶</span></summary>
-    <div class="card-body">
+  <details class="acc">
+    <summary>8. 48h em Londres: recap geral <span class="acc-arrow">+</span></summary>
+    <div class="acc-body">
       <div class="sl"><b>Duração:</b> ~1:25 · <b>Gancho (0:00-0:03):</b> 3 cortes de 0.5s dos melhores momentos + <i>"48 horas, 1 mochila e um lançamento de livro."</i></div>
       <ul>
         <li>0:03-1:00: montagem dos melhores momentos no ritmo de música</li>
@@ -809,21 +931,21 @@ details.card[open] summary .arr{transform:rotate(90deg);}
 
 <!-- ══════════════ ESCOLA ══════════════ -->
 <section class="panel" id="escola">
-  <h2 class="section-title"><span class="kicker">Conteúdo da escola</span>Reels de inglês</h2>
+  <h2 class="sect-title"><span class="eyebrow">Conteúdo da escola</span>Reels de inglês</h2>
 
-  <div class="escola-note">
+  <div class="info-bar">
     Sem videoaula em Londres — toma tempo demais do roteiro. Só os reels abaixo, rápidos de gravar entre uma parada e outra.
   </div>
 
-  <div class="info-box">
+  <div class="info-bar">
     <b>🎯 Regra:</b> sempre acima de 1:01. Gancho dos 3 primeiros segundos em inglês — erro comum + correção, ou pergunta retórica. Você em pé, sem efeito, sem edição no local.
   </div>
 
-  <div class="group-label">Reels de inglês (você em pé, roteiro básico)</div>
+  <div class="group-lbl">Reels de inglês (você em pé, roteiro básico)</div>
 
-  <details class="card">
-    <summary>1. Present Perfect: "I've just..." <span class="arr">▶</span></summary>
-    <div class="card-body">
+  <details class="acc">
+    <summary>1. Present Perfect: "I've just..." <span class="acc-arrow">+</span></summary>
+    <div class="acc-body">
       <p><b>Lição:</b> B1 — 139/141/145</p>
       <div class="sl"><b>Duração:</b> ~1:05 · <b>Gancho:</b> <span class="en">"Most people get this tense wrong in their very first English lesson."</span></div>
       <ul>
@@ -834,9 +956,9 @@ details.card[open] summary .arr{transform:rotate(90deg);}
     </div>
   </details>
 
-  <details class="card">
-    <summary>2. Big Ben vs. Elizabeth Tower <span class="arr">▶</span></summary>
-    <div class="card-body">
+  <details class="acc">
+    <summary>2. Big Ben vs. Elizabeth Tower <span class="acc-arrow">+</span></summary>
+    <div class="acc-body">
       <div class="sl"><b>Duração:</b> ~1:05 · <b>Gancho:</b> <span class="en">"You've been saying this wrong your whole life."</span></div>
       <ul>
         <li>0:03-0:25: <span class="en">"'Big Ben' is just the name of the bell — the tower is the Elizabeth Tower."</span></li>
@@ -846,9 +968,9 @@ details.card[open] summary .arr{transform:rotate(90deg);}
     </div>
   </details>
 
-  <details class="card">
-    <summary>3. "Takeaway" não é "to-go" <span class="arr">▶</span></summary>
-    <div class="card-body">
+  <details class="acc">
+    <summary>3. "Takeaway" não é "to-go" <span class="acc-arrow">+</span></summary>
+    <div class="acc-body">
       <div class="sl"><b>Duração:</b> ~1:10 · <b>Gancho:</b> <span class="en">"Say this wrong in a UK shop and they'll know you're not from here."</span></div>
       <ul>
         <li>0:03-0:30: <span class="en">"In the UK, you don't say 'to-go' — you say 'takeaway'."</span> — grava no Kentish Delight</li>
@@ -858,9 +980,9 @@ details.card[open] summary .arr{transform:rotate(90deg);}
     </div>
   </details>
 
-  <details class="card">
-    <summary>4. "Queue" não é "line" <span class="arr">▶</span></summary>
-    <div class="card-body">
+  <details class="acc">
+    <summary>4. "Queue" não é "line" <span class="acc-arrow">+</span></summary>
+    <div class="acc-body">
       <div class="sl"><b>Duração:</b> ~1:05 · <b>Gancho:</b> <span class="en">"This one word instantly gives away if you're American or British."</span></div>
       <ul>
         <li>0:03-0:30: <span class="en">"Americans say 'line', Brits say 'queue'."</span> — na fila do Heartstopper</li>
@@ -869,9 +991,9 @@ details.card[open] summary .arr{transform:rotate(90deg);}
     </div>
   </details>
 
-  <details class="card">
-    <summary>5. Comparativo: kebab vs. döner <span class="arr">▶</span></summary>
-    <div class="card-body">
+  <details class="acc">
+    <summary>5. Comparativo: kebab vs. döner <span class="acc-arrow">+</span></summary>
+    <div class="acc-body">
       <p><b>Lição:</b> A2 — 10 (Comparatives)</p>
       <div class="sl"><b>Duração:</b> ~1:15 · <b>Gancho:</b> segura os dois kebabs + <span class="en">"One of these is clearly better. Let's prove it in English."</span></div>
       <ul>
@@ -882,9 +1004,9 @@ details.card[open] summary .arr{transform:rotate(90deg);}
     </div>
   </details>
 
-  <details class="card">
-    <summary>6. "Fancy" como verbo <span class="arr">▶</span></summary>
-    <div class="card-body">
+  <details class="acc">
+    <summary>6. "Fancy" como verbo <span class="acc-arrow">+</span></summary>
+    <div class="acc-body">
       <div class="sl"><b>Duração:</b> ~1:05 · <b>Gancho:</b> <span class="en">"This word doesn't mean what you think it means."</span></div>
       <ul>
         <li>0:03-0:30: <span class="en">"'Fancy' isn't just an adjective — 'Do you fancy a coffee?' means 'Do you want a coffee?'"</span></li>
@@ -893,9 +1015,9 @@ details.card[open] summary .arr{transform:rotate(90deg);}
     </div>
   </details>
 
-  <details class="card">
-    <summary>7. "Mind the gap" <span class="arr">▶</span></summary>
-    <div class="card-body">
+  <details class="acc">
+    <summary>7. "Mind the gap" <span class="acc-arrow">+</span></summary>
+    <div class="acc-body">
       <div class="sl"><b>Duração:</b> ~1:10 · <b>Gancho:</b> <span class="en">"You'll hear this phrase 50 times a day in London — most tourists have no idea what it means."</span></div>
       <ul>
         <li>0:03-0:35: <span class="en">"'Mind' here means 'pay attention to' — so 'mind the gap' means 'watch out for the gap'."</span></li>
@@ -905,9 +1027,9 @@ details.card[open] summary .arr{transform:rotate(90deg);}
     </div>
   </details>
 
-  <details class="card">
-    <summary>8. Must have / Could have — Beatles <span class="arr">▶</span></summary>
-    <div class="card-body">
+  <details class="acc">
+    <summary>8. Must have / Could have — Beatles <span class="acc-arrow">+</span></summary>
+    <div class="acc-body">
       <p><b>Lição:</b> B2 — 163/167</p>
       <div class="sl"><b>Duração:</b> ~1:10 · <b>Gancho:</b> <span class="en">"The police literally stopped The Beatles' last concert — right here."</span></div>
       <ul>
@@ -918,9 +1040,9 @@ details.card[open] summary .arr{transform:rotate(90deg);}
     </div>
   </details>
 
-  <details class="card">
-    <summary>9. "Could I..." — pedidos educados <span class="arr">▶</span></summary>
-    <div class="card-body">
+  <details class="acc">
+    <summary>9. "Could I..." — pedidos educados <span class="acc-arrow">+</span></summary>
+    <div class="acc-body">
       <div class="sl"><b>Duração:</b> ~1:05 · <b>Gancho:</b> <span class="en">"This one phrase makes you sound instantly more polite in English."</span></div>
       <ul>
         <li>0:03-0:30: <span class="en">"Instead of 'I want a coffee', try: 'Could I get a coffee, please?'"</span></li>
@@ -930,9 +1052,9 @@ details.card[open] summary .arr{transform:rotate(90deg);}
     </div>
   </details>
 
-  <details class="card">
-    <summary>10. British vs. American English <span class="arr">▶</span></summary>
-    <div class="card-body">
+  <details class="acc">
+    <summary>10. British vs. American English <span class="acc-arrow">+</span></summary>
+    <div class="acc-body">
       <div class="sl"><b>Duração:</b> ~1:15 · <b>Gancho:</b> <span class="en">"British and American English are basically two different languages — here's proof."</span></div>
       <ul>
         <li>0:03-0:50: <span class="en">"lift / elevator · flat / apartment · queue / line · holiday / vacation"</span> — texto na tela</li>
@@ -945,125 +1067,87 @@ details.card[open] summary .arr{transform:rotate(90deg);}
 
 </div><!-- /panels-wrap -->
 
-<!-- ═══ BOTTOM NAV ═══ -->
-<nav class="bottom-nav">
-  <button class="nav-btn active" data-tab="dia1">
-    <span class="nav-icon">🗓️</span>
-    <span class="nav-label">Dia 1</span>
-    <span class="nav-dot"></span>
+</div>
+
+<nav class="bnav">
+  <button class="nb active" data-tab="dia1">
+    <span class="nb-pill"></span>
+    <span class="nb-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><rect x="8" y="14" width="3" height="3" rx=".6" fill="currentColor" stroke="none"/></svg></span>
+    <span class="nb-label">Dia 1</span>
   </button>
-  <button class="nav-btn" data-tab="dia2">
-    <span class="nav-icon">🗓️</span>
-    <span class="nav-label">Dia 2</span>
-    <span class="nav-dot"></span>
+  <button class="nb" data-tab="dia2">
+    <span class="nb-pill"></span>
+    <span class="nb-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l6-3 6 3 6-3v13l-6 3-6-3-6 3V7z"/><line x1="9" y1="4" x2="9" y2="17"/><line x1="15" y1="7" x2="15" y2="20"/></svg></span>
+    <span class="nb-label">Dia 2</span>
   </button>
-  <button class="nav-btn" data-tab="conteudo">
-    <span class="nav-icon">🎬</span>
-    <span class="nav-label">Vlogs</span>
-    <span class="nav-dot"></span>
+  <button class="nb" data-tab="conteudo">
+    <span class="nb-pill"></span>
+    <span class="nb-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="14" height="10" rx="2"/><path d="M16 10.5l5-3v9l-5-3V10.5z"/></svg></span>
+    <span class="nb-label">Vlogs</span>
   </button>
-  <button class="nav-btn" data-tab="escola">
-    <span class="nav-icon">🏫</span>
-    <span class="nav-label">Escola</span>
-    <span class="nav-dot"></span>
+  <button class="nb" data-tab="escola">
+    <span class="nb-pill"></span>
+    <span class="nb-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="11" x2="13" y2="11"/></svg></span>
+    <span class="nb-label">Escola</span>
   </button>
 </nav>
 
-<!-- ═══ PWA BANNER ═══ -->
 <div id="pwa-banner">
-  <div class="pwa-text"><b>📱 Adicionar à tela inicial</b>Abre como app, sem navegador.</div>
-  <button id="pwa-btn-install" onclick="installPWA()">Instalar</button>
-  <button id="pwa-btn-dismiss" onclick="dismissBanner()">Agora não</button>
+  <div class="pwa-txt"><b>📱 Adicionar à tela inicial</b>Abre como app, sem navegador.</div>
+  <button id="btn-install" onclick="installPWA()">Instalar</button>
+  <button id="btn-dismiss" onclick="dismissBanner()">Não agora</button>
 </div>
 
-<!-- ═══ INSTALL MODAL ═══ -->
-<div id="install-modal">
+<div id="inst-modal">
   <div class="modal-box">
-    <button class="close-btn" onclick="document.getElementById('install-modal').classList.remove('visible')">✕</button>
+    <button class="modal-close" onclick="document.getElementById('inst-modal').classList.remove('visible')">✕</button>
     <h3>Adicionar à tela inicial</h3>
     <ol id="modal-steps"></ol>
-    <p class="modal-note">O app abre em tela cheia sem a barra do navegador.</p>
+    <p class="modal-note">Abre em tela cheia, sem barra do navegador.</p>
   </div>
 </div>
 
 <script>
-// ── TAB SWITCHING ──
-let activeTab = 'dia1';
-const tabHeaders = { dia1:'QUA 01 JUL · Dia 1', dia2:'QUI 02 JUL · Dia 2', conteudo:'Vlogs & Reels', escola:'Escola' };
+let active = 'dia1';
+const hdrs = {dia1:'DIA 1 · QUA 01 JUL',dia2:'DIA 2 · QUI 02 JUL',conteudo:'VLOGS & REELS',escola:'ESCOLA · EN'};
 
-function switchTab(id) {
-  if (id === activeTab) return;
-  document.getElementById(activeTab).classList.remove('active');
-  document.querySelector('.nav-btn.active').classList.remove('active');
+function go(id){
+  if(id===active)return;
+  document.getElementById(active).classList.remove('active');
+  document.querySelector('.nb.active').classList.remove('active');
   document.getElementById(id).classList.add('active');
   document.querySelector('[data-tab="'+id+'"]').classList.add('active');
-  document.getElementById('hdr-sub').textContent = tabHeaders[id] || id;
-  document.getElementById('panels-wrap').scrollTop = 0;
-  activeTab = id;
+  document.getElementById('hdr-sub').textContent = hdrs[id];
+  document.getElementById('wrap').scrollTop = 0;
+  active = id;
 }
+document.querySelectorAll('.nb').forEach(b=>b.addEventListener('click',()=>go(b.dataset.tab)));
 
-document.querySelectorAll('.nav-btn').forEach(btn => {
-  btn.addEventListener('click', () => switchTab(btn.dataset.tab));
-});
+const tabs=['dia1','dia2','conteudo','escola'];
+let sx=0,sy=0,st=0;
+const wr=document.getElementById('wrap');
+wr.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY;st=Date.now();},{passive:true});
+wr.addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;
+  if(Date.now()-st>400||Math.abs(dy)>Math.abs(dx)||Math.abs(dx)<50)return;
+  const i=tabs.indexOf(active);
+  if(dx<0&&i<tabs.length-1)go(tabs[i+1]);
+  if(dx>0&&i>0)go(tabs[i-1]);
+},{passive:true});
 
-// ── SWIPE ──
-const wrap = document.getElementById('panels-wrap');
-const tabs = ['dia1','dia2','conteudo','escola'];
-let sx=0, sy=0, sTime=0;
-
-wrap.addEventListener('touchstart', e => {
-  sx = e.touches[0].clientX;
-  sy = e.touches[0].clientY;
-  sTime = Date.now();
-}, { passive: true });
-
-wrap.addEventListener('touchend', e => {
-  const dx = e.changedTouches[0].clientX - sx;
-  const dy = e.changedTouches[0].clientY - sy;
-  const dt = Date.now() - sTime;
-  if (dt > 400 || Math.abs(dy) > Math.abs(dx) || Math.abs(dx) < 50) return;
-  const idx = tabs.indexOf(activeTab);
-  if (dx < 0 && idx < tabs.length-1) switchTab(tabs[idx+1]);
-  if (dx > 0 && idx > 0) switchTab(tabs[idx-1]);
-}, { passive: true });
-
-// ── PWA ──
-let deferredPrompt = null;
-const banner = document.getElementById('pwa-banner');
-const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
-const isStandalone = window.navigator.standalone || window.matchMedia('(display-mode:standalone)').matches;
-
-const steps = document.getElementById('modal-steps');
-if (isIOS) {
-  steps.innerHTML = '<li>Toque em <b>Compartilhar ↑</b> na barra do Safari</li><li>Toque em <b>"Adicionar à tela de início"</b></li><li>Confirme com <b>"Adicionar"</b></li>';
-} else {
-  steps.innerHTML = '<li>Toque nos <b>três pontos ⋮</b> do Chrome</li><li>Toque em <b>"Adicionar à tela inicial"</b></li><li>Confirme com <b>"Adicionar"</b></li>';
-}
-
-window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferredPrompt = e; });
-
-if (!isStandalone && !sessionStorage.getItem('pwa-dismissed')) {
-  setTimeout(() => banner.classList.add('visible'), 1000);
-}
-
-function installPWA() {
-  if (deferredPrompt) {
-    deferredPrompt.prompt();
-    deferredPrompt.userChoice.then(() => { deferredPrompt=null; banner.classList.remove('visible'); });
-  } else {
-    banner.classList.remove('visible');
-    document.getElementById('install-modal').classList.add('visible');
-  }
-}
-function dismissBanner() {
-  banner.classList.remove('visible');
-  sessionStorage.setItem('pwa-dismissed','1');
-}
-
-// ── SERVICE WORKER ──
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js').catch(()=>{});
-}
+let dp=null;
+const banner=document.getElementById('pwa-banner');
+const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent)&&!window.MSStream;
+const isApp=window.navigator.standalone||window.matchMedia('(display-mode:standalone)').matches;
+const ms=document.getElementById('modal-steps');
+ms.innerHTML=isIOS
+  ?'<li>Toque em <b>Compartilhar ↑</b> no Safari</li><li>Toque em <b>"Adicionar à tela de início"</b></li><li>Confirme com <b>"Adicionar"</b></li>'
+  :'<li>Toque nos <b>três pontos ⋮</b> do Chrome</li><li>Toque em <b>"Adicionar à tela inicial"</b></li><li>Confirme com <b>"Adicionar"</b></li>';
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e;});
+if(!isApp&&!sessionStorage.getItem('pwa-off'))setTimeout(()=>banner.classList.add('visible'),1000);
+function installPWA(){if(dp){dp.prompt();dp.userChoice.then(()=>{dp=null;banner.classList.remove('visible');});}else{banner.classList.remove('visible');document.getElementById('inst-modal').classList.add('visible');}}
+function dismissBanner(){banner.classList.remove('visible');sessionStorage.setItem('pwa-off','1');}
+if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
 </script>
 </body>
 </html>
